@@ -147,6 +147,14 @@ require_once '../includes/session.php';
                                 <span class="hide-menu">Exam</span>
                             </a>
                         </li>
+
+                        <li class="sidebar-item pt-2">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../admin/index.php?layout=question"
+                                aria-expanded="false">
+                                <i class=" fas fa-question" aria-hidden="true"></i>
+                                <span class="hide-menu">Question</span>
+                            </a>
+                        </li>
                     </ul>
 
                 </nav>
@@ -190,6 +198,8 @@ require_once '../includes/session.php';
                     $layout = $_GET['layout'];
                     if ($layout == 'exam') {
                         require_once 'exam/exam.php';
+                    } else if ($layout == 'question') {
+                        require_once 'question/question.php';
                     } else {
                         require_once 'dashboard.php';
                     }
@@ -294,142 +304,13 @@ require_once '../includes/session.php';
     </div>
     <!-- End Modal -->
 
-	<!-- Add exam -->
-	<script>
-		$(document).ready(function() {
-			$('#js-save').click(function() {
-				var examName = $('#exam-name').val();
-				var examTime = $('#exam-time').val();
-				var examStatus = $('#exam-status').val();
-				$.ajax({
-					url: 'exam/add-exam.php',
-					type: 'POST',
-					data: {
-						examName: examName,
-						examTime: examTime,
-						examStatus: examStatus
-					},
-					success: function(response) {
-						if (response.status == 1) {
-							alert('Add exam successfully');
-							$('#addExamModal').modal('hide');
-							location.reload();
-						} else {
-							alert('Add exam failed');
-						}
-					}
-				});
-			});
-		});
-	</script>
-	<!-- Add exam -->
+    <!-- Js add edit delete exam -->
+    <script src="./assets/js/exam.js"></script>
+    <!-- Js add edit delete exam -->
 
-    <!-- Edit exam -->
-    <script>
-        $(document).ready(function() {
-            $('#js-edit-close').click(() => {
-                $('#editExamModal').modal('hide');
-            });
-
-            $('#edit-icon-close').click(() => {
-                $('#editExamModal').modal('hide');
-            });
-
-            $('#js-edit-save').click(() => {
-                var examName = $('#edit-exam-name').val();
-                var examTime = $('#edit-exam-time').val();
-                var examStatus = $('#edit-exam-status').val();
-                $.ajax({
-                    url: 'exam/edit-exam.php',
-                    type: 'POST',
-                    data: {
-                        examName: examName,
-                        examTime: examTime,
-                        examStatus: examStatus
-                    },
-                    success: function(response) {
-                        if (response.status == 1) {
-                            alert(response.message);
-                            $('#editExamModal').modal('hide');
-                            location.reload();
-                        } else {
-                            alert(response.message);
-                        }
-                    }
-                });
-            });
-
-            const btns = document.querySelectorAll('.js-edit-exam');
-            btns.forEach(item => {
-                item.addEventListener('click', () => {
-                    var examName = item.getAttribute('value');
-                    $.ajax({
-                        url: 'http://localhost/WebThiTN-Oto/api/exam/getExamByName.php',
-                        type: 'POST',
-                        data: {
-                            examName: examName
-                        },
-                        success: function(response) {
-                            $('#editExamModal').modal('show');
-                            $('#edit-exam-name').val(response.examName);
-                            $('#edit-exam-time').val(response.timeLimit);
-                            $('#edit-exam-status').val((response.status == 1) ? "active" : "inactive");
-                        }
-                    });
-                });
-            });
-        });
-    </script>
-    <!-- Edit exam -->
-
-    <!-- Delete exam -->
-    <script>
-        $(document).ready(() => {
-            const deleteBtns = document.querySelectorAll('.js-delete-exam');
-            deleteBtns.forEach(item => {
-                item.addEventListener('click', () => {
-                    const option = confirm('Are you sure you want to delete this exam?');
-                    if (!option) {
-                        return;
-                    }
-
-                    var examName = item.getAttribute('value');
-                    $.ajax({
-                        url: 'exam/delete-exam.php',
-                        type: 'POST',
-                        data: {
-                            examName: examName
-                        },
-                        success: (response) => {
-                            if (response.status == 1) {
-                                alert(response.message);
-                                location.reload();
-                            } else {
-                                alert(response.message);
-                            }
-                        }
-                    });
-                });
-            });
-        });
-    </script>
-    <!-- Delete exam -->
-
-	<!-- Open & Close modal -->
-    <script>
-        $(document).ready(function() {
-            $('#add-exam').click(function() {
-                $('#addExamModal').modal('show');
-            });
-            $('#js-close').click(function() {
-                $('#addExamModal').modal('hide');
-            });
-            $('#icon-close').click(function() {
-                $('#addExamModal').modal('hide');
-            });
-        });
-    </script>
-	<!-- Open & Close modal -->	
+    <!-- Js add edit delete question -->
+    <script src="./assets/js/question.js"></script>
+    <!-- Js add edit delete question -->
 
     <!-- ============================================================== -->
     <!-- All Jquery -->
