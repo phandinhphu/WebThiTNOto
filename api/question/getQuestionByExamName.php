@@ -3,10 +3,10 @@
 require_once '../../db/database.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $id = $_POST['id'];
-    $question = getRow("SELECT * FROM questions WHERE id = :id", ['id' => $id]);
+    $examName = $_POST['examName'];
+    $questions = getRows("SELECT * FROM questions WHERE exam_name = :examName", ['examName' => $examName]);
     header('Content-Type: application/json');
-    echo json_encode($question);
+    echo json_encode($questions);
 } else {
     header("HTTP/1.0 405 Method Not Allowed");
 }

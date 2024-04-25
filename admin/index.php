@@ -304,6 +304,73 @@ require_once '../includes/session.php';
     </div>
     <!-- End Modal -->
 
+    <!-- Modal Add Question -->
+    <div class="modal fade" id="addQuestionModal" tabindex="-1" role="dialog" aria-labelledby="addQuestionModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addQuestionModalLabel">Add Question</h5>
+                    <button id="question-icon-close" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="question-content" class="col-form-label">Question Content:</label>
+                            <input type="text" class="form-control" id="question-content" name="question-content">
+                        </div>
+                        <div class="form-group">
+                            <label for="question-topic" class="col-form-label">Question Topic:</label>
+                            <select name="question-topic" class="form-control" id="question-topic">
+                            <?php $examNames = getRows("SELECT examName FROM exam");
+                            foreach($examNames as $examName) : ?>
+                                <option value="<?= $examName['examName'] ?>"><?= $examName['examName'] ?></option>
+                            <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="answer-a" class="col-form-label">Answer A:</label>
+                            <input type="text" class="form-control" id="answer-a" name="answer-a">
+                        </div>
+                        <div class="form-group">
+                            <label for="answer-b" class="col-form-label">Answer B:</label>
+                            <input type="text" class="form-control" id="answer-b" name="answer-b">
+                        </div>   
+                        <div class="form-group">
+                            <label for="answer-c" class="col-form-label">Answer C:</label>
+                            <input type="text" class="form-control" id="answer-c" name="answer-c">
+                        </div>
+                        <div class="form-group">
+                            <label for="answer-d" class="col-form-label">Answer D:</label>
+                            <input type="text" class="form-control" id="answer-d" name="answer-d">
+                        </div>
+                        <div class="form-group">
+                            <label for="difficulty" class="col-form-label">Difficulty:</label>
+                            <select name="difficulty" class="form-control" id="difficulty">
+                                <option value="easy">Dễ</option>
+                                <option value="hard">Khó</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="correct-answer" class="col-form-label">Correct Answer:</label>
+                            <select name="correct-answer" class="form-control" id="correct-answer">
+                                <option value="A">Answer A</option>
+                                <option value="B">Answer B</option>
+                                <option value="C">Answer C</option>
+                                <option value="D">Answer D</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>  
+                <div class="modal-footer">
+                    <button id="js-question-close" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button id="js-question-save" type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Js add edit delete exam -->
     <script src="./assets/js/exam.js"></script>
     <!-- Js add edit delete exam -->

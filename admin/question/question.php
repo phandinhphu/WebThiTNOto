@@ -6,7 +6,7 @@ $questions = getRows('SELECT * FROM questions');
         <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
             <div class="header">
                 <h1>Quản lý câu hỏi</h1>
-                <button id="add-exam" class="btn btn-primary">Thêm câu hỏi</button>
+                <button id="add-question" class="btn btn-primary">Thêm câu hỏi</button>
             </div>
             <table id="example" class="display" style="width:100%">
                 <thead>
@@ -15,6 +15,7 @@ $questions = getRows('SELECT * FROM questions');
                         <th>Câu hỏi</th>
                         <th>Chủ đề</th>
                         <th>Độ khó</th>
+                        <th>Câu trả lời đúng</th>
                         <th>Thao tác</th>
                     </tr>
                 </thead>
@@ -27,6 +28,7 @@ $questions = getRows('SELECT * FROM questions');
                             <td><?= $question['question'] ?></td>
                             <td><?= $question['chuDe'] ?></td>
                             <td><?= $question['difficulty'] ?></td>
+                            <td><?= $question['answer'] ?></td>
                             <td>
                                 <button type="button" class="btn btn-cyan js-show-question" value="<?= $question['question'] ?>">Xem</button>
                                 <button type="button" class="btn btn-primary js-edit-question" value="<?= $question['question'] ?>">Sửa</button>
