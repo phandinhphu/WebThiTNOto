@@ -13,10 +13,8 @@ require_once '../includes/session.php';
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords"
-        content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, Ample lite admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, Ample admin lite dashboard bootstrap 5 dashboard template">
-    <meta name="description"
-        content="Ample Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
+    <meta name="keywords" content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, Ample lite admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, Ample admin lite dashboard bootstrap 5 dashboard template">
+    <meta name="description" content="Ample Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
     <title>Trang Quản Trị</title>
     <link rel="canonical" href="https://www.wrappixel.com/templates/ample-admin-lite/" />
@@ -27,14 +25,7 @@ require_once '../includes/session.php';
     <link rel="stylesheet" href="./assets/plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css">
     <!-- Custom CSS -->
     <link href="./assets/css/style.min.css" rel="stylesheet">
-    <style>
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 14px;
-        }
-    </style>
+    <link href="./assets/css/custom.css" rel="stylesheet">
 </head>
 
 <body>
@@ -50,8 +41,7 @@ require_once '../includes/session.php';
     <!-- ============================================================== -->
     <!-- Main wrapper - style you can find in pages.scss -->
     <!-- ============================================================== -->
-    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
-        data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full" data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
         <!-- ============================================================== -->
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
@@ -80,14 +70,13 @@ require_once '../includes/session.php';
                     <!-- ============================================================== -->
                     <!-- toggle and nav items -->
                     <!-- ============================================================== -->
-                    <a class="nav-toggler waves-effect waves-light text-dark d-block d-md-none"
-                        href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
+                    <a class="nav-toggler waves-effect waves-light text-dark d-block d-md-none" href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
                 </div>
                 <!-- ============================================================== -->
                 <!-- End Logo -->
                 <!-- ============================================================== -->
                 <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
-                   
+
                     <!-- ============================================================== -->
                     <!-- Right side toggle and nav items -->
                     <!-- ============================================================== -->
@@ -109,8 +98,7 @@ require_once '../includes/session.php';
                         <!-- ============================================================== -->
                         <li>
                             <a class="profile-pic" href="#">
-                                <img src="./assets/plugins/images/users/varun.jpg" alt="user-img" width="36"
-                                    class="img-circle"><span class="text-white font-medium">Steave</span></a>
+                                <img src="./assets/plugins/images/users/varun.jpg" alt="user-img" width="36" class="img-circle"><span class="text-white font-medium">Steave</span></a>
                         </li>
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
@@ -133,24 +121,21 @@ require_once '../includes/session.php';
                     <ul id="sidebarnav">
                         <!-- User Profile-->
                         <li class="sidebar-item pt-2">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../admin/index.php?layout=dashboard"
-                                aria-expanded="false">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../admin/index.php?layout=dashboard" aria-expanded="false">
                                 <i class="far fa-clock" aria-hidden="true"></i>
                                 <span class="hide-menu">Dashboard</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item pt-2">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../admin/index.php?layout=exam"
-                                aria-expanded="false">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../admin/index.php?layout=exam" aria-expanded="false">
                                 <i class=" fas fa-bookmark" aria-hidden="true"></i>
                                 <span class="hide-menu">Exam</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item pt-2">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../admin/index.php?layout=question"
-                                aria-expanded="false">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../admin/index.php?layout=question" aria-expanded="false">
                                 <i class=" fas fa-question" aria-hidden="true"></i>
                                 <span class="hide-menu">Question</span>
                             </a>
@@ -194,18 +179,18 @@ require_once '../includes/session.php';
             <!-- Container fluid  -->
             <!-- ============================================================== -->
             <?php
-                if (isset($_GET['layout'])) {
-                    $layout = $_GET['layout'];
-                    if ($layout == 'exam') {
-                        require_once 'exam/exam.php';
-                    } else if ($layout == 'question') {
-                        require_once 'question/question.php';
-                    } else {
-                        require_once 'dashboard.php';
-                    }
+            if (isset($_GET['layout'])) {
+                $layout = $_GET['layout'];
+                if ($layout == 'exam') {
+                    require_once 'exam/exam.php';
+                } else if ($layout == 'question') {
+                    require_once 'question/question.php';
                 } else {
                     require_once 'dashboard.php';
                 }
+            } else {
+                require_once 'dashboard.php';
+            }
             ?>
             <!-- ============================================================== -->
             <!-- End Container fluid  -->
@@ -213,8 +198,7 @@ require_once '../includes/session.php';
             <!-- ============================================================== -->
             <!-- footer -->
             <!-- ============================================================== -->
-            <footer class="footer text-center"> 2021 © Ample Admin brought to you by <a
-                    href="https://www.wrappixel.com/">wrappixel.com</a>
+            <footer class="footer text-center"> 2021 © Ample Admin brought to you by <a href="https://www.wrappixel.com/">wrappixel.com</a>
             </footer>
             <!-- ============================================================== -->
             <!-- End footer -->
@@ -229,8 +213,7 @@ require_once '../includes/session.php';
     <!-- ============================================================== -->
 
     <!-- Modal Add Exam -->
-    <div class="modal fade" id="addExamModal" tabindex="-1" role="dialog" aria-labelledby="addExamModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="addExamModal" tabindex="-1" role="dialog" aria-labelledby="addExamModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -264,11 +247,10 @@ require_once '../includes/session.php';
             </div>
         </div>
     </div>
-    <!-- End Modal -->
- 
+    <!-- End Modal Add Exam -->
+
     <!-- Modal Edit Exam -->
-    <div class="modal fade" id="editExamModal" tabindex="-1" role="dialog" aria-labelledby="addExamModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="editExamModal" tabindex="-1" role="dialog" aria-labelledby="addExamModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -302,11 +284,10 @@ require_once '../includes/session.php';
             </div>
         </div>
     </div>
-    <!-- End Modal -->
+    <!-- End Modal Edit Exam -->
 
     <!-- Modal Add Question -->
-    <div class="modal fade" id="addQuestionModal" tabindex="-1" role="dialog" aria-labelledby="addQuestionModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="addQuestionModal" tabindex="-1" role="dialog" aria-labelledby="addQuestionModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -324,10 +305,10 @@ require_once '../includes/session.php';
                         <div class="form-group">
                             <label for="question-topic" class="col-form-label">Question Topic:</label>
                             <select name="question-topic" class="form-control" id="question-topic">
-                            <?php $examNames = getRows("SELECT examName FROM exam");
-                            foreach($examNames as $examName) : ?>
-                                <option value="<?= $examName['examName'] ?>"><?= $examName['examName'] ?></option>
-                            <?php endforeach; ?>
+                                <?php $examNames = getRows("SELECT examName FROM exam");
+                                foreach ($examNames as $examName) : ?>
+                                    <option value="<?= $examName['examName'] ?>"><?= $examName['examName'] ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                         <div class="form-group">
@@ -337,7 +318,7 @@ require_once '../includes/session.php';
                         <div class="form-group">
                             <label for="answer-b" class="col-form-label">Answer B:</label>
                             <input type="text" class="form-control" id="answer-b" name="answer-b">
-                        </div>   
+                        </div>
                         <div class="form-group">
                             <label for="answer-c" class="col-form-label">Answer C:</label>
                             <input type="text" class="form-control" id="answer-c" name="answer-c">
@@ -363,7 +344,7 @@ require_once '../includes/session.php';
                             </select>
                         </div>
                     </form>
-                </div>  
+                </div>
                 <div class="modal-footer">
                     <button id="js-question-close" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button id="js-question-save" type="button" class="btn btn-primary">Save</button>
@@ -371,6 +352,76 @@ require_once '../includes/session.php';
             </div>
         </div>
     </div>
+    <!-- End Modal Add Question -->
+
+    <!-- Modal Edit Question -->
+    <div class="modal fade" id="editQuestionModal" tabindex="-1" role="dialog" aria-labelledby="editQuestionModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editQuestionModalLabel">Edit Question</h5>
+                    <button id="edit-question-icon-close" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="question-content" class="col-form-label">Question Content:</label>
+                            <input type="text" class="form-control" id="edit-content" name="question-content">
+                        </div>
+                        <div class="form-group">
+                            <label for="question-topic" class="col-form-label">Question Topic:</label>
+                            <select name="question-topic" class="form-control" id="edit-topic">
+                                <?php $examNames = getRows("SELECT examName FROM exam");
+                                foreach ($examNames as $examName) : ?>
+                                    <option value="<?= $examName['examName'] ?>"><?= $examName['examName'] ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="answer-a" class="col-form-label">Answer A:</label>
+                            <input type="text" class="form-control" id="edit-answer-a" name="answer-a">
+                        </div>
+                        <div class="form-group">
+                            <label for="answer-b" class="col-form-label">Answer B:</label>
+                            <input type="text" class="form-control" id="edit-answer-b" name="answer-b">
+                        </div>
+                        <div class="form-group">
+                            <label for="answer-c" class="col-form-label">Answer C:</label>
+                            <input type="text" class="form-control" id="edit-answer-c" name="answer-c">
+                        </div>
+                        <div class="form-group">
+                            <label for="answer-d" class="col-form-label">Answer D:</label>
+                            <input type="text" class="form-control" id="edit-answer-d" name="answer-d">
+                        </div>
+                        <div class="form-group">
+                            <label for="difficulty" class="col-form-label">Difficulty:</label>
+                            <select name="difficulty" class="form-control" id="edit-difficulty">
+                                <option value="easy">Dễ</option>
+                                <option value="hard">Khó</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="correct-answer" class="col-form-label">Correct Answer:</label>
+                            <select name="correct-answer" class="form-control" id="edit-correct-answer">
+                                <option value="A">Answer A</option>
+                                <option value="B">Answer B</option>
+                                <option value="C">Answer C</option>
+                                <option value="D">Answer D</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="js-edit-question-close" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button id="js-edit-question-save" type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal Edit Question -->
+
     <!-- Js add edit delete exam -->
     <script src="./assets/js/exam.js"></script>
     <!-- Js add edit delete exam -->
@@ -398,7 +449,7 @@ require_once '../includes/session.php';
     <script src="./assets/plugins/bower_components/chartist/dist/chartist.min.js"></script>
     <script src="./assets/plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
     <script src="./assets/js/pages/dashboards/dashboard1.js"></script>
-    
+
 </body>
 
 </html>

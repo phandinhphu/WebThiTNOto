@@ -1,7 +1,7 @@
 /**
  * Path: admin/assets/js/exam.js
  * Description: This file is used to handle the event add of the exam page
- */
+*/
 $(document).ready(function () {
 	$("#js-save").click(function () {
 		var examName = $("#exam-name").val();
