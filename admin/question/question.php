@@ -1,7 +1,5 @@
 <?php
-$total = getRows('SELECT * FROM questions');
 $limit = 15;
-$totalPage = ceil(count($total) / $limit);
 
 if (isset($_GET['page'])) {
     $page = $_GET['page'];
@@ -11,24 +9,77 @@ if (isset($_GET['page'])) {
 
 $start = ($page - 1) * $limit;
 
-if (isset($_GET['search'])) {
+$total = getRows("SELECT * FROM questions");
+$totalPage = ceil(count($total) / $limit);
+$questions = getRows("SELECT * FROM questions LIMIT $start, $limit");
+
+if (isset($_GET['search']) && empty($_GET['_sort'])) {
     $search = $_GET['search'];
+    $total = getRows("SELECT * FROM questions WHERE question LIKE '%$search%'");
+    $totalPage = ceil(count($total) / $limit);
     $questions = getRows("SELECT * FROM questions WHERE question LIKE '%$search%' LIMIT $start, $limit");
-} else {
-    $questions = getRows("SELECT * FROM questions LIMIT $start, $limit");
 }
+
+if (isset($_GET['_sort']) && empty($_GET['search'])) {
+    $sort = $_GET['_sort'];
+    if ($sort == 'hard') {
+        $totalPage = ceil(count(getRows("SELECT * FROM questions WHERE difficulty = 'hard'")) / $limit);
+        $questions = getRows("SELECT * FROM questions WHERE difficulty = 'hard' LIMIT $start, $limit");
+    } elseif ($sort == 'easy') {
+        $totalPage = ceil(count(getRows("SELECT * FROM questions WHERE difficulty = 'easy'")) / $limit);
+        $questions = getRows("SELECT * FROM questions WHERE difficulty = 'easy' LIMIT $start, $limit");
+    } else {
+        $totalPage = ceil(count(getRows("SELECT * FROM questions WHERE chuDe = '$sort'")) / $limit);
+        $questions = getRows("SELECT * FROM questions WHERE chuDe = '$sort' LIMIT $start, $limit");
+    }
+}
+
+if (isset($_GET['_sort']) && isset($_GET['search'])) {
+    $sort = $_GET['_sort'];
+    $search = $_GET['search'];
+    if ($sort == 'hard') {
+        $totalPage = ceil(count(getRows("SELECT * FROM questions WHERE difficulty = 'hard' AND question LIKE '%$search%'")) / $limit);
+        $questions = getRows("SELECT * FROM questions WHERE difficulty = 'hard' AND question LIKE '%$search%' LIMIT $start, $limit");
+    } elseif ($sort == 'easy') {
+        $totalPage = ceil(count(getRows("SELECT * FROM questions WHERE difficulty = 'easy' AND question LIKE '%$search%'")) / $limit);
+        $questions = getRows("SELECT * FROM questions WHERE difficulty = 'easy' AND question LIKE '%$search%' LIMIT $start, $limit");
+    } else {
+        $totalPage = ceil(count(getRows("SELECT * FROM questions WHERE chuDe = '$sort' AND question LIKE '%$search%'")) / $limit);
+        $questions = getRows("SELECT * FROM questions WHERE chuDe = '$sort' AND question LIKE '%$search%' LIMIT $start, $limit");
+    }
+}
+
+$examNames = getRows("SELECT * FROM exam");
 ?>
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
             <div class="header">
-                <h1>Quản lý câu hỏi</h1>
+                <div>
+                    <h1>Quản lý câu hỏi</h1>
+                    <label for="sorted">Sorted</label>
+                    <form action="?layout=question" method="get">
+                        <input type="hidden" name="layout" value="question">
+                        <select name="_sort" id="sorted">
+                            <option value="hard">Khó nhất</option>
+                            <option value="easy">Dễ nhất</option>
+                            <?php foreach ($examNames as $examName) : ?>
+                                <option value="<?= $examName['examName'] ?>"><?= $examName['examName'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                        <button class="btn btn-primary" type="submit">Sort</button>
+                    </form>
+                </div>
                 <div class="search__group">
                     <form role="search" class="form__search" action="?layout=question" method="get">
-                        <input type="text" placeholder="Search..." class="form-control mt-0" name="search">
-                        <a href="" class="active">
+                        <input type="hidden" name="layout" value="question">
+                        <?php if (isset($_GET['_sort'])) { ?>
+                            <input type="hidden" name="_sort" value="<?= $_GET['_sort'] ?>">
+                        <?php } ?>
+                        <input id="search-question" type="text" placeholder="Search..." class="form-control mt-0" name="search" required>
+                        <button type="submit" id="search" class="btn-search active">
                             <i class="fa fa-search"></i>
-                        </a>
+                        </button>
                     </form>
                     <button id="add-question" class="btn btn-primary">Thêm câu hỏi</button>
                 </div>
@@ -68,9 +119,7 @@ if (isset($_GET['search'])) {
         <?php
         if ($page > 1) {
         ?>
-            <a href="?layout=question&page=<?= $page - 1 ?>
-                            <?= isset($_GET['id']) ? '&id=' . $_GET['id'] : '' ?>
-                            <?= isset($_GET['search']) ? '&search=' . $_GET['search'] : '' ?>" class="pagination__prev">
+            <a href="?layout=question&page=<?= $page - 1 ?><?= isset($_GET['_sort']) ? '&_sort=' . $_GET['_sort'] : '' ?><?= isset($_GET['search']) ? '&search=' . $_GET['search'] : '' ?>" class="pagination__prev">
                 <i class="fa fa-arrow-left"></i>
             </a>
         <?php } ?>
@@ -78,17 +127,13 @@ if (isset($_GET['search'])) {
         <?php
         for ($i = 1; $i <= $totalPage; $i++) {
         ?>
-            <a href="?layout=question&page=<?= $i ?>
-                            <?= isset($_GET['id']) ? '&id=' . $_GET['id'] : '' ?>
-                            <?= isset($_GET['search']) ? '&search=' . $_GET['search'] : '' ?>" class="pagination__number <?= $i == $page ? 'pagination__number--active' : '' ?>"><?= $i ?></a>
+            <a href="?layout=question&page=<?= $i ?><?= isset($_GET['_sort']) ? '&_sort=' . $_GET['_sort'] : '' ?><?= isset($_GET['search']) ? '&search=' . $_GET['search'] : '' ?>" class="pagination__number <?= $i == $page ? 'pagination__number--active' : '' ?>"><?= $i ?></a>
         <?php } ?>
 
         <?php
         if ($page < $totalPage) {
         ?>
-            <a href="?layout=question&page=<?= $page + 1 ?>
-                            <?= isset($_GET['id']) ? '&id=' . $_GET['id'] : '' ?>
-                            <?= isset($_GET['search']) ? '&search=' . $_GET['search'] : '' ?>" class="pagination__next">
+            <a href="?layout=question&page=<?= $page + 1 ?><?= isset($_GET['_sort']) ? '&_sort=' . $_GET['_sort'] : '' ?><?= isset($_GET['search']) ? '&search=' . $_GET['search'] : '' ?>" class="pagination__next">
                 <i class="fa fa-arrow-right"></i>
             </a>
         <?php } ?>

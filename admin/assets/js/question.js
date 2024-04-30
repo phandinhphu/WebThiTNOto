@@ -172,3 +172,8 @@ $(document).ready(() => {
         });
     });
 });
+
+// function submitSearch() {
+// 	let inputSearch = $('#search-question').val();
+// 	window.location.href = `?layout=question&search=${encodeURIComponent(inputSearch)}`;
+// }

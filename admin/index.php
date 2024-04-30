@@ -1,6 +1,9 @@
 <?php
-require_once '../db/dbhelpper.php';
-require_once '../db/dbconnect.php';
+session_start();
+if (!isset($_SESSION['admin'])) {
+    header('Location: ../admin/login.php');
+}
+
 require_once '../db/database.php';
 require_once '../includes/function.php';
 require_once '../includes/session.php';
@@ -81,28 +84,19 @@ require_once '../includes/session.php';
                     <!-- Right side toggle and nav items -->
                     <!-- ============================================================== -->
                     <ul class="navbar-nav ms-auto d-flex align-items-center">
-
                         <!-- ============================================================== -->
-                        <!-- Search -->
-                        <!-- ============================================================== -->
-                        <li class=" in">
-                            <form role="search" class="app-search d-none d-md-block me-3">
-                                <input type="text" placeholder="Search..." class="form-control mt-0">
-                                <a href="" class="active">
-                                    <i class="fa fa-search"></i>
-                                </a>
-                            </form>
-                        </li>
-                        <!-- ============================================================== -->
-                        <!-- User profile and search -->
+                        <!-- User profile -->
                         <!-- ============================================================== -->
                         <li>
                             <a class="profile-pic" href="#">
-                                <img src="./assets/plugins/images/users/varun.jpg" alt="user-img" width="36" class="img-circle"><span class="text-white font-medium">Steave</span></a>
+                                <img src="./assets/plugins/images/users/varun.jpg" alt="user-img" width="36" class="img-circle"><span class="text-white font-medium"><?= isset($_SESSION['admin']) ? $_SESSION['admin'] : '' ?></span></a>
                         </li>
                         <!-- ============================================================== -->
-                        <!-- User profile and search -->
+                        <!-- User profile -->
                         <!-- ============================================================== -->
+                        <li>
+                            <a href="../admin/logout.php" class="btn btn-danger">Đăng xuất</a>
+                        </li>
                     </ul>
                 </div>
             </nav>

@@ -66,3 +66,10 @@
 	color: #fff;
 	background-color: #ff6b6b;
 }
+
+.btn-search {
+  background-color: transparent;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}

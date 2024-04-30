@@ -1,4 +1,4 @@
 <?php
 
-const _MODULE = 'client';
+const _MODULE = 'pages';
 const _ACTION = 'trangchu';
