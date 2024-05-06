@@ -1,0 +1,109 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.form__login {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 400px;
+    padding: 15px;
+    margin: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.form__login h2 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.input__login {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.input__login label {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    transform: translateY(9px);
+    left: 15px;
+    color: #999;
+    pointer-events: none;
+    background-color: #fff;
+    animation: input__login 0.3s;
+}
+
+@keyframes input__login {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-13px);
+    }
+}
+
+.input__login input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.input__login input:focus ~ label,
+.input__login input:valid ~ label {
+    display: block;
+    transform: translateY(-13px);
+}
+
+.input__login input:focus,
+.input__login input:valid {
+    border-color: #007bff;
+}
+
+.input__login input:focus::placeholder,
+.input__login input:valid::placeholder {
+    color: transparent;
+}
+
+.btn__submit {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn__submit button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+.btn__submit button:hover {
+    background-color: #0056b3;
+}
+
+.btn__submit button:active {
+    background-color: #004286;
+}
+
+.btn__submit button:focus {
+    outline: none;
+}
+
+.link__register {
+    text-align: center;
+}
+
+.link__forgot {
+    text-align: right;
+}

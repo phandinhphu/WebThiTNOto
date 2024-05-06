@@ -1,4 +1,10 @@
 <?php
+if (!isset($_SESSION['user'])) {
+    header('location: ?module=pages&action=login');
+    exit();
+}
+
+
 if (isset($_GET['page'])) {
     $page = $_GET['page'];
 } else {
@@ -57,9 +63,10 @@ $examNames = getRows("SELECT * FROM exam");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ôn thi trắc nghiệm Ô tô</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="client/assets/css/grid.css">
     <link rel="stylesheet" href="client/assets/css/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -71,7 +78,7 @@ $examNames = getRows("SELECT * FROM exam");
         <div class="app__container">
             <div class="grid wide">
                 <div class="row">
-                    <div class="l-3 c-3">
+                    <div class="col l-3 c-3">
                         <div class="app__sidebar">
                             <div class="app__sidebar-heading">
                                 <h3 class="app__sidebar-heading-title">Bài thi</h3>
@@ -90,7 +97,7 @@ $examNames = getRows("SELECT * FROM exam");
                         </div>
                     </div>
 
-                    <div class="l-9 c-9">
+                    <div class="col l-9 c-9">
                         <div class="wrapper">
                             <h1>Câu hỏi ôn tập</h1>
                             <!-- sort -->

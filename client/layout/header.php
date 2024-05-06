@@ -3,36 +3,54 @@ $exams = getRows('SELECT * FROM exam');
 ?>
 <header>
     <div class="header">
-        <div class="header__heading">
+        <div class="header__first">
             <a href="index.php">
                 <h1>Thi Lái Xe Ô tô</h1>
             </a>
+            <div class="header__menu">
+                <ul class="first__list">
+                    <li class="first__items">
+                        <a class="first__items-link" href="?module=pages&action=trangchu">Trang chủ</a>
+                    </li>
+                    <li class="first__items">
+                        <a class="first__items-link" href="?module=pages&action=ontap">Ôn tập</a>
+                    </li>
+                    <li class="first__items">
+                        <a class="first__items-link" href="?module=pages&action=thithu">Thi thử</a>
+                        <ul class="context__list">
+                            <?php foreach ($exams as $exam) : ?>
+                                <li class="context__items">
+                                    <a class="context__items-link" href="?module=pages&action=thithu&exam_name=<?php echo $exam['examName']; ?>"><?php echo $exam['examName']; ?></a>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </li>
+                    <li class="first__items">
+                        <a class="first__items-link" href="index.php?module=pages&action=about">Giới thiệu</a>
+                    </li>
+                    <li class="first__items">
+                        <a class="first__items-link" href="index.php?module=pages&action=contact">Liên hệ</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <div class="header__menu">
-            <ul class="first__list">
-                <li class="first__items">
-                    <a class="first__items-link" href="?client=pages&action=trangchu">Trang chủ</a>
-                </li>
-                <li class="first__items">
-                    <a class="first__items-link" href="index.php?client=pages&action=ontap">Ôn tập</a>
-                </li>
-                <li class="first__items">
-                    <a class="first__items-link" href="#">Thi thử</a>
-                    <ul class="context__list">
-                        <?php foreach ($exams as $exam) : ?>
-                            <li class="context__items">
-                                <a class="context__items-link" href="index.php?client=pages&action=thithu&exam_name=<?php echo $exam['examName']; ?>"><?php echo $exam['examName']; ?></a>
-                            </li>
-                        <?php endforeach; ?>
+
+        <div class="header__second">
+            <div class="header__second-user">
+                <?php if (isset($_SESSION['user'])) : ?>
+                    <span class="header__second-user-name"><?php echo $_SESSION['user']['userName']; ?></span>
+                <?php endif; ?>
+                <div class="header__second-user-menu">
+                    <ul class="second__list">
+                        <li class="second__items">
+                            <a class="second__items-link" href="?module=pages&action=profile">Thông tin cá nhân</a>
+                        </li>
+                        <li class="second__items">
+                            <a class="second__items-link" href="?module=auth&action=logout">Đăng xuất</a>
+                        </li>
                     </ul>
-                </li>
-                <li class="first__items">
-                    <a class="first__items-link" href="index.php?client=pages&action=about">Giới thiệu</a>
-                </li>
-                <li class="first__items">
-                    <a class="first__items-link" href="index.php?client=pages&action=contact">Liên hệ</a>
-                </li>
-            </ul>
+                </div>
+            </div>
         </div>
     </div>
 </header>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="client/assets/css/login.css">
+</head>
+
+<body>
+    <div class="form__login">
+        <h2>Đăng nhập</h2>
+        <div class="alert" role="alert"></div>
+        <div class="input__login">
+            <input id="name" type="text" name="name" placeholder="Họ và tên..." required>
+            <label for="name">Họ và tên</label>
+        </div>
+        <div class="input__login">
+            <input id="email" type="email" name="email" placeholder="Email..." required>
+            <label for="email">Email</label>
+        </div>
+        <div class="input__login">
+            <input id="password" type="password" name="password" placeholder="Mật khẩu..." required>
+            <label for="password">Mật khẩu</label>
+        </div>
+        <div class="input__login">
+            <input id="confirmPassword" type="password" name="confirmPassword" placeholder="Nhập lại mật khẩu..." required>
+            <label for="confirmPassword">Nhập lại mật khẩu</label>
+        </div>
+        <div class="input__login">
+            <input id="phone" type="text" name="phone" placeholder="Số điện thoại..." required>
+            <label for="phone">Số điện thoại</label>
+        </div>
+        <div class="btn__submit">
+            <button type="submit">Đăng ký</button>
+            <a href="?client=pages&action=login" class="link__register">Đăng nhập</a>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        const btnSubmit = document.querySelector('.btn__submit button');
+        const name = document.getElementById('name');
+        const email = document.getElementById('email');
+        const password = document.getElementById('password');
+        const confirmPassword = document.getElementById('confirmPassword');
+        const phone = document.getElementById('phone');
+
+        btnSubmit.addEventListener('submit', () => {
+            let nameValue = name.value;
+            let emailValue = email.value;
+            let passwordValue = password.value;
+            let confirmPasswordValue = confirmPassword.value;
+            let phoneValue = phone.value;
+
+            if (passwordValue.length < 6) {
+                let html = `<div class="alert alert-danger" role="alert">
+                    Mật khẩu phải lớn hơn 6 ký tự
+                </div>`;
+                $('#password').after(html);
+                return;
+            }
+
+            if (confirmPasswordValue.length < 6) {
+                let html = `<div class="alert alert-danger" role="alert">
+                    Mật khẩu phải lớn hơn 6 ký tự
+                </div>`;
+                $('#confirmPassword').after(html);
+                return;
+            }
+
+            if (passwordValue !== confirmPasswordValue) {
+                let html = `<div class="alert alert-danger" role="alert">
+                    Mật khẩu không khớp
+                </div>`;
+                $('#password').after(html);
+                $('#confirmPassword').after(html);
+                return;
+            }
+
+            let regex = /^(0)[0-9]{9}$/;
+            if (!regex.test(phoneValue)) {
+                let html = `<div class="alert alert-danger" role="alert">
+                    Số điện thoại không hợp lệ
+                </div>`;
+                $('#phone').after(html);
+                return;
+            }
+            
+            
+            $.ajax({
+                url: 'client/auth/register.php',
+                type: 'POST',
+                data: {
+                    name: nameValue,
+                    email: emailValue,
+                    password: passwordValue,
+                    phone: phoneValue
+                },
+                success: res => {
+                    if (res.status === 200) {
+                        const alert = document.querySelector('.alert');
+                        alert.classList.add('alert-success');
+                        alert.innerHTML = res.msg;
+                    } else {
+                        const alert = document.querySelector('.alert');
+                        alert.classList.add('alert-danger');
+                        alert.innerHTML = res.msg;
+                        name.value = '';
+                        email.value = '';
+                        password.value = '';
+                        confirmPassword.value = '';
+                        phone.value = '';
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
