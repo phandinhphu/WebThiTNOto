@@ -4,12 +4,12 @@ if (!isset($_SESSION['user'])) {
     exit();
 }
 if ($_SESSION['user']['status'] == 0) {
-    echo `
+    echo '
         <div>
             <h1>Bạn chưa kích hoạt tài khoản</h1>
             <p>Vui lòng kiểm tra email để kích hoạt tài khoản</p>
         </div>
-    `;
+    ';
     die();
 }
 
@@ -32,10 +32,21 @@ if ($_SESSION['user']['status'] == 0) {
         include_once 'client/layout/header.php';
         ?>
 
+        <div id="fixed-info">
+            <h2>Tên bài thi: Bài thi trắc nghiệm</h2>
+            <p id="time-left">Thời gian còn lại: 90:00</p>
+            <p>Số câu hỏi: 20</p>
+            <div id="list-id">
+                <div class="grid wide">
+                    <div class="row"></div>
+                </div>
+            </div>
+        </div>
+
         <div class="app__container">
             <div class="grid wide container">
                 <div class="row">
-                    <div class="c-8 c-o-2">
+                    <div class="col l-8 l-o-2">
                         <?php if (isset($_GET['exam_name'])) {
                             $exam = getRow('SELECT * FROM exam WHERE examName = :examName', ['examName' => $_GET['exam_name']]);
                         ?>
@@ -50,7 +61,7 @@ if ($_SESSION['user']['status'] == 0) {
                                             <div class="panel-footer">
                                                 <div class="">Thời gian: <?= $exam['timeLimit'] ?> phút</div>
                                                 <div class="">
-                                                    <button class="btn btn-primary" type="button" align="center">Bắt đầu</button>
+                                                    <button exam-name="<?= $exam['examName'] ?>" class="btn btn-primary" type="button" align="center">Bắt đầu</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -72,7 +83,7 @@ if ($_SESSION['user']['status'] == 0) {
                                                 <div class="panel-footer">
                                                     <div class="">Thời gian: <?= $exam['timeLimit'] ?> phút</div>
                                                     <div class="">
-                                                        <button class="btn btn-primary" type="button" align="center">Bắt đầu</button>
+                                                        <button exam-name="<?= $exam['examName'] ?>" class="btn btn-primary" type="button" align="center">Bắt đầu</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -95,6 +106,7 @@ if ($_SESSION['user']['status'] == 0) {
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="./client/assets/js/generateQuestion.js"></script>
 </body>
 
 </html>

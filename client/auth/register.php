@@ -6,11 +6,24 @@ require_once '../../includes/phpmailer/PHPMailer.php';
 require_once '../../includes/phpmailer/SMTP.php';
 require_once '../../includes/function.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $userName = $_POST['name'];
     $email = $_POST['email'];
     $password = $_POST['password'];
     $phone = $_POST['phone'];
+
+    $tmp = getRow('SELECT * FROM users WHERE email = :email', ['email' => $email]);
+
+    if ($tmp) {
+        $status = 404;
+        $msg = 'Email đã tồn tại';
+        header('Content-Type: application/json');
+        echo json_encode([
+            'status' => $status,
+            'msg' => $msg
+        ]);
+        exit();
+    }
 
     $data = [
         'userName' => $userName,

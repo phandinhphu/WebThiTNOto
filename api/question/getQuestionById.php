@@ -2,7 +2,7 @@
 
 require_once '../../db/database.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = $_POST['id'];
     $question = getRow("SELECT * FROM questions WHERE id = :id", ['id' => $id]);
     header('Content-Type: application/json');

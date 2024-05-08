@@ -24,9 +24,11 @@ if (isset($_SESSION['user'])) {
             <input id="password" type="password" name="password" placeholder="Mật khẩu..." required>
             <label for="password">Mật khẩu</label>
         </div>
-        <a href="?client=pages&action=forgot" class="link__forgot">Quên mật khẩu?</a>
+        <div class="link__forgot">
+            <a href="?client=pages&action=forgot">Quên mật khẩu?</a>
+        </div>
         <div class="btn__submit">
-            <button type="button">Đăng nhập</button>
+            <button type="button" class="btn">Đăng nhập</button>
             <a href="?client=pages&action=register" class="link__register">Đăng ký</a>
         </div>
     </div>
@@ -40,6 +42,18 @@ if (isset($_SESSION['user'])) {
         btnSubmit.addEventListener('click', () => {
             let emailValue = email.value;
             let passwordValue = password.value;
+
+            if (emailValue === '' || passwordValue === '') {
+                alert('Vui lòng nhập đầy đủ thông tin');
+                return;
+            }
+
+            let regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            if (!regexEmail.test(emailValue)) {
+                alert('Email không hợp lệ');
+                return;
+            }
+
             $.ajax({
                 url: 'client/auth/login.php',
                 type: 'POST',

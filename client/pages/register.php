@@ -12,6 +12,7 @@
 <body>
     <div class="form__login">
         <h2>Đăng nhập</h2>
+        <div id="loading" style="display:none;">Please wait...</div>
         <div class="alert" role="alert"></div>
         <div class="input__login">
             <input id="name" type="text" name="name" placeholder="Họ và tên..." required>
@@ -34,7 +35,7 @@
             <label for="phone">Số điện thoại</label>
         </div>
         <div class="btn__submit">
-            <button type="submit">Đăng ký</button>
+            <button id="registerButton" type="button" class="btn">Đăng ký</button>
             <a href="?client=pages&action=login" class="link__register">Đăng nhập</a>
         </div>
     </div>
@@ -48,7 +49,7 @@
         const confirmPassword = document.getElementById('confirmPassword');
         const phone = document.getElementById('phone');
 
-        btnSubmit.addEventListener('submit', () => {
+        btnSubmit.addEventListener('click', () => {
             let nameValue = name.value;
             let emailValue = email.value;
             let passwordValue = password.value;
@@ -89,7 +90,10 @@
                 return;
             }
             
-            
+            $('#loading').show();
+            $('#registerButton').addClass('btn--disabled');
+            $('.link__register').addClass('disabled');
+
             $.ajax({
                 url: 'client/auth/register.php',
                 type: 'POST',
@@ -101,10 +105,18 @@
                 },
                 success: res => {
                     if (res.status === 200) {
+                        $('#loading').hide();
+                        $('#registerButton').removeClass('btn--disabled');
+                        $('.link__register').removeClass('disabled');
+
                         const alert = document.querySelector('.alert');
                         alert.classList.add('alert-success');
                         alert.innerHTML = res.msg;
                     } else {
+                        $('#loading').hide();
+                        $('#registerButton').removeClass('btn--disabled');
+                        $('.link__register').removeClass('disabled');
+
                         const alert = document.querySelector('.alert');
                         alert.classList.add('alert-danger');
                         alert.innerHTML = res.msg;

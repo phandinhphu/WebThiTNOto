@@ -27,7 +27,7 @@ if (isset($_GET['token'])) {
     } else {
         echo 'Token không hợp lệ hoặc đã hết hạn';
     }
-} else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+} else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
 
     $data = [

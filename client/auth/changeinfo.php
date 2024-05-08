@@ -3,7 +3,7 @@ session_start();
 
 require_once '../../db/database.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = $_SESSION['user']['id'];
     $email = $_POST['email'];
     $phone = $_POST['phone'];

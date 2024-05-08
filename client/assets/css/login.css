@@ -6,6 +6,13 @@ body {
     margin: 0;
 }
 
+/* disabled */
+.disabled {
+    pointer-events: none; /* Ngăn chặn sự kiện chuột */
+    color: gray; /* Thay đổi màu chữ */
+    text-decoration: none; /* Loại bỏ gạch chân */
+}
+
 .form__login {
     display: flex;
     flex-direction: column;
@@ -79,7 +86,7 @@ body {
     align-items: center;
 }
 
-.btn__submit button {
+.btn__submit .btn {
     padding: 10px;
     border: none;
     border-radius: 5px;
@@ -88,16 +95,21 @@ body {
     cursor: pointer;
 }
 
-.btn__submit button:hover {
+.btn__submit .btn:hover {
     background-color: #0056b3;
 }
 
-.btn__submit button:active {
+.btn__submit .btn:active {
     background-color: #004286;
 }
 
-.btn__submit button:focus {
+.btn__submit .btn:focus {
     outline: none;
+}
+
+.btn__submit .btn.btn--disabled {
+    background-color: gray !important;
+    cursor: not-allowed;
 }
 
 .link__register {
