@@ -6,11 +6,12 @@
 }
 
 html {
+    scroll-behavior: smooth;
     font-size: 62.5%;
 }
 
 #fixed-info {
-    max-width: 427px;
+    max-width: 625px;
     display: none;
     position: fixed;
     top: 100px;

@@ -57,7 +57,10 @@ $examNames = getRows("SELECT * FROM exam");
             <div class="header">
                 <div>
                     <h1>Quản lý câu hỏi</h1>
-                    <label for="sorted">Sorted</label>
+                    <label for="sorted">
+                        <strong>Filter</strong>
+                        <i class="fa fa-filter" aria-hidden="true"></i>
+                    </label>
                     <form action="?layout=question" method="get">
                         <input type="hidden" name="layout" value="question">
                         <select name="_sort" id="sorted">
@@ -67,7 +70,7 @@ $examNames = getRows("SELECT * FROM exam");
                                 <option value="<?= $examName['examName'] ?>"><?= $examName['examName'] ?></option>
                             <?php endforeach; ?>
                         </select>
-                        <button class="btn btn-primary" type="submit">Sort</button>
+                        <button class="btn btn-primary" type="submit">Apply Filter</button>
                     </form>
                 </div>
                 <div class="search__group">

@@ -33,7 +33,9 @@ if ($_SESSION['user']['status'] == 0) {
         ?>
 
         <div id="fixed-info">
-            <h2>Tên bài thi: Bài thi trắc nghiệm</h2>
+            <h2>Tên bài thi: 
+                <?= isset($_GET['exam_name']) ? $_GET['exam_name'] : 'Bài thi trắc nghiệm' ?>
+            </h2>
             <p id="time-left">Thời gian còn lại: 90:00</p>
             <p>Số câu hỏi: 20</p>
             <div id="list-id">
