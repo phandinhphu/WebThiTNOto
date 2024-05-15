@@ -21,7 +21,10 @@ if ($_SESSION['user']['status'] == 0) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thi thử</title>
+    <!-- link fontawsome min css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
     <link rel="stylesheet" href="client/assets/css/grid.css">
     <link rel="stylesheet" href="client/assets/css/main.css">
 </head>
@@ -36,8 +39,8 @@ if ($_SESSION['user']['status'] == 0) {
             <h2>Tên bài thi: 
                 <?= isset($_GET['exam_name']) ? $_GET['exam_name'] : 'Bài thi trắc nghiệm' ?>
             </h2>
-            <p id="time-left">Thời gian còn lại: 90:00</p>
-            <p>Số câu hỏi: 20</p>
+            <p id="time-left">Thời gian còn lại: </p>
+            <p id="total-question"></p>
             <div id="list-id">
                 <div class="grid wide">
                     <div class="row"></div>
@@ -63,7 +66,7 @@ if ($_SESSION['user']['status'] == 0) {
                                             <div class="panel-footer">
                                                 <div class="">Thời gian: <?= $exam['timeLimit'] ?> phút</div>
                                                 <div class="">
-                                                    <button exam-name="<?= $exam['examName'] ?>" class="btn btn-primary" type="button" align="center">Bắt đầu</button>
+                                                    <button exam-name="<?= $exam['examName'] ?>" class="btn btn-primary btn-start" type="button" align="center">Bắt đầu</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -85,7 +88,7 @@ if ($_SESSION['user']['status'] == 0) {
                                                 <div class="panel-footer">
                                                     <div class="">Thời gian: <?= $exam['timeLimit'] ?> phút</div>
                                                     <div class="">
-                                                        <button exam-name="<?= $exam['examName'] ?>" class="btn btn-primary" type="button" align="center">Bắt đầu</button>
+                                                        <button exam-name="<?= $exam['examName'] ?>" class="btn btn-primary btn-start" type="button" align="center">Bắt đầu</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -104,6 +107,46 @@ if ($_SESSION['user']['status'] == 0) {
     <?php
     include_once 'client/layout/footer.php';
     ?>
+    </div>
+
+    <div class="modal fade" id="modalResult" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Kết quả thi</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Điểm của bạn: <span id="score"></span></p>
+                    <p id="msg"></p>
+                    <div id="time-comple"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btn-view-result">Xem đáp án</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalViewResult" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Đáp án</h4>
+                </div>
+                <div class="modal-body" style="
+                    overflow: scroll;
+                    height: 400px;
+                    overflow-y: scroll;
+                    overflow-x: hidden;
+                ">
+                    <div id="list-answer"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

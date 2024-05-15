@@ -1,5 +1,5 @@
 <?php
-$exams = getRows('SELECT * FROM exam');
+$exams = getRows('SELECT * FROM exam WHERE status = 1');
 ?>
 <header>
     <div class="header">
@@ -26,10 +26,7 @@ $exams = getRows('SELECT * FROM exam');
                         </ul>
                     </li>
                     <li class="first__items">
-                        <a class="first__items-link" href="index.php?module=pages&action=about">Giới thiệu</a>
-                    </li>
-                    <li class="first__items">
-                        <a class="first__items-link" href="index.php?module=pages&action=contact">Liên hệ</a>
+                        <a class="first__items-link" href="?module=pages&action=historyQuestion">Lịch sử</a>
                     </li>
                 </ul>
             </div>

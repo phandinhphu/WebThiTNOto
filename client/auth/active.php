@@ -13,7 +13,13 @@ if (empty($_GET['token'])) {
         ];
         try {
             $result = update('users', $data, ['id' => $activeTokenDB['id']]);
-            header('Location: http://localhost/WebThiTN-Oto/?module=pages&action=login');
+            if (isset($_SESSION['user'])) {
+                session_destroy();
+            }
+            echo 'Kích hoạt tài khoản thành công </br>';
+            echo `
+                <a href="http://localhost/WebThiTN-Oto/?module=pages&action=login">Đăng nhập</a>
+            `;
             exit();
         } catch (Exception $e) {
             echo 'Đã xảy ra lỗi';

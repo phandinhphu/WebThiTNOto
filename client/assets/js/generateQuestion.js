@@ -1,4 +1,7 @@
-document.querySelectorAll(".btn-primary").forEach((btn) => {
+var countDown;
+
+document.querySelectorAll(".btn.btn-start").forEach((btn) => {
+	console.log(document.querySelectorAll(".btn-start"));
 	btn.addEventListener("click", async () => {
 		const examName = btn.getAttribute("exam-name");
 
@@ -6,7 +9,7 @@ document.querySelectorAll(".btn-primary").forEach((btn) => {
 			"http://localhost/WebThiTN-Oto/api/question/getRandomQuestion.php?exam_name=" +
 				examName
 		);
-		const { data: questions } = await response.json();
+		const { data: questions, timeLimit, totalQuestion } = await response.json();
 
 		const col = document.querySelector(".col");
 		col.classList.remove("l-8");
@@ -14,6 +17,7 @@ document.querySelectorAll(".btn-primary").forEach((btn) => {
 		col.classList.add("l-6", "l-o-6");
 
 		document.getElementById("fixed-info").style.display = "block";
+		document.getElementById("total-question").textContent =`Số câu hỏi: ${totalQuestion}`;
 
 		const panel = document.querySelector(".panel-group");
 		panel.innerHTML = "";
@@ -57,7 +61,9 @@ document.querySelectorAll(".btn-primary").forEach((btn) => {
 		btnSubmit.innerHTML = "Nộp bài";
 		col.appendChild(btnSubmit);
 
-		btnSubmit.addEventListener("click", handleBtnSubmitClick);
+		btnSubmit.addEventListener("click", () => {
+			handleBtnSubmitClick(timeLimit);
+		});
 
 		generateListBtnId(questions);
 
@@ -71,9 +77,9 @@ document.querySelectorAll(".btn-primary").forEach((btn) => {
 			});
 		});
 
-		let timeLeft = 5400;
+		let timeLeft = timeLimit * 60;
 
-		const countDown = setInterval(() => {
+		countDown = setInterval(() => {
 			timeLeft--;
 
 			const minutes = Math.floor(timeLeft / 60);
@@ -89,14 +95,30 @@ document.querySelectorAll(".btn-primary").forEach((btn) => {
 			if (timeLeft < 0) {
 				clearInterval(countDown);
 				alert("Hết giờ làm bài");
-				window.location.href =
-					"http://localhost/WebThiTN-Oto/?module=pages&action=thithu";
+				const groupByName = {};
+				const userAnswers = {};
+
+				document
+					.querySelectorAll("input[type=radio]")
+					.forEach((radio) => {
+						if (!groupByName[radio.name]) {
+							groupByName[radio.name] = [];
+						}
+						groupByName[radio.name].push(radio);
+
+						if (radio.checked) {
+							userAnswers[radio.name] = radio.value;
+						}
+					});
+				
+				let timeComplete = `${timeLimit}:00`;
+				submitAnswer({ userAnswers, timeComplete }, timeout = 0);
 			}
 		}, 1000);
 	});
 });
 
-function handleBtnSubmitClick() {
+function handleBtnSubmitClick(timeLimit) {
 	let isComplete = true;
 	const groupByName = {};
 	const userAnswers = {};
@@ -118,12 +140,67 @@ function handleBtnSubmitClick() {
 			break;
 		}
 	}
-
+	
 	if (!isComplete) {
 		alert("Vui lòng hoàn thành tất cả các câu hỏi");
 	} else {
-		console.table(userAnswers);
+		clearInterval(countDown);
+
+		let timeCompleteDom = document.getElementById("time-left").textContent;
+		let minute = timeCompleteDom.split(" ")[4].split(":")[0];
+		let second = timeCompleteDom.split(" ")[4].split(":")[1];
+		let timeRemaining = minute * 60 + second * 1;
+		let tmp = timeLimit * 60 - timeRemaining;
+		let timeComplete;
+		if (Math.floor(tmp / 60) <= 0) {
+			timeComplete = `${tmp % 60} giây`;
+		} else {
+			timeComplete = `${Math.floor(tmp / 60)} phút ${tmp % 60} giây`;
+		}
+		const data = {
+			userAnswers,
+			timeComplete,
+		};
+		submitAnswer(data);
 	}
+}
+
+async function submitAnswer(data, timeout = 1) {
+	if (timeout == 1) {
+		let comfirm = confirm("Bạn có chắc chắn muốn nộp bài không?");
+		if (!comfirm) {
+			return;
+		}
+	}
+
+	clearInterval(countDown);
+
+	const response = await fetch(
+		"http://localhost/WebThiTN-Oto/api/question/chamdiem.php",
+		{
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(data),
+		}
+	);
+	const { score, msg, timeComplete } = await response.json();
+
+	$("#modalResult").modal("show");
+
+	const scoreDom = document.getElementById("score");
+	scoreDom.textContent = `${score}`;
+
+	const msgDom = document.getElementById("msg");
+	msgDom.textContent = `${msg}`;
+
+	const timeCompleteDom = document.getElementById("time-comple");
+	timeCompleteDom.textContent = `Thời gian làm bài: ${timeComplete}`;
+
+	$("#modalResult").on("hidden.bs.modal", function (e) {
+		window.location.href = "http://localhost/WebThiTN-Oto/?module=pages&action=thithu";
+	})
 }
 
 function generateListBtnId(questions) {
@@ -144,3 +221,49 @@ function generateListBtnId(questions) {
 		listId.appendChild(col);
 	});
 }
+
+document.getElementById('btn-view-result').addEventListener('click', async () => {
+	const response = await fetch('http://localhost/WebThiTN-Oto/api/question/getLatestQuestion.php');
+	const { data: questions } = await response.json();
+
+	const listAnswerDOM = document.getElementById('list-answer');
+	listAnswerDOM.innerHTML = '';
+	questions.forEach((question, index) => {
+		const div = document.createElement('div');
+		div.classList.add('divst-group-item');
+		div.innerHTML = `
+			<div class="panel-heading">Câu hỏi ${index + 1}</div>
+			<div class="panel-body" style="color: ${question.result === 0 ? 'red' : 'green'}">
+				<i class="fa fa-check" aria-hidden="true"></i>
+				${question.question}
+			</div>
+			<div class="panel-footer">
+				<div class="radio" style="
+					display: flex;
+					flex-direction: column;
+				">
+					<label><input type="radio" value="A" name="group-${question.id}" ${
+						question.answerUser === 'A' ? 'checked' : ''
+					} disabled>A. ${question.optionA}</label>
+
+					<label><input type="radio" value="B" name="group-${question.id}" ${
+						question.answerUser === 'B' ? 'checked' : ''
+					} disabled>B. ${question.optionB}</label>
+
+					<label><input type="radio" value="C" name="group-${question.id}" ${
+						question.answerUser === 'C' ? 'checked' : ''
+					} disabled>C. ${question.optionC}</label>
+
+					<label><input type="radio" value="D" name="group-${question.id}" ${
+						question.answerUser === 'D' ? 'checked' : ''
+					} disabled>D. ${question.optionD}</label>
+				</div>
+				<div class="panel-footer">Đáp án đúng: ${question.answer}</div>
+			</div>
+		`;
+		listAnswerDOM.appendChild(div);
+	});
+
+	// $("#modalResult").modal("hide");
+	$("#modalViewResult").modal("show");
+});

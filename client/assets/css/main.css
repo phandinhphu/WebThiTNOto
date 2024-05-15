@@ -404,9 +404,19 @@ header {
     font-size: 1.4rem;
 }
 
+.page-item {
+    flex: 0 0 20%;
+    margin: 2px;
+    padding: 6px;
+}
+
 .pagination__number--active {
 	color: #fff;
 	background-color: #06e286;
+}
+
+.page-link {
+    text-align: center;
 }
 
 /* Sort */

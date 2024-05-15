@@ -54,7 +54,7 @@ if (isset($_GET['_sort']) && isset($_GET['search'])) {
     }
 }
 
-$examNames = getRows("SELECT * FROM exam");
+$examNames = getRows("SELECT * FROM exam WHERE status = 1");
 ?>
 <!DOCTYPE html>
 <html lang="en">

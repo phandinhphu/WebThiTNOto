@@ -5,6 +5,7 @@ require_once '../../db/database.php';
 if (isset($_GET['exam_name'])) {
     $examName = $_GET['exam_name'];
     $question = getRows('SELECT * FROM questions WHERE chuDe = :chuDe ORDER BY RAND() LIMIT 10', ['chuDe' => $examName]);
+    $timeLimit = getRow('SELECT * FROM exam WHERE examName = :examName', ['examName' => $examName])['timeLimit'];
     
     if ($question) {
         $status = 200;
@@ -18,7 +19,9 @@ if (isset($_GET['exam_name'])) {
     echo json_encode([
         'status' => $status,
         'message' => $message,
-        'data' => $question
+        'data' => $question,
+        'timeLimit' => $timeLimit,
+        'totalQuestion' => count($question)
     ]);
 } else {
     http_response_code(404);
