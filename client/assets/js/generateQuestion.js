@@ -1,7 +1,6 @@
 var countDown;
 
 document.querySelectorAll(".btn.btn-start").forEach((btn) => {
-	console.log(document.querySelectorAll(".btn-start"));
 	btn.addEventListener("click", async () => {
 		const examName = btn.getAttribute("exam-name");
 
@@ -264,6 +263,5 @@ document.getElementById('btn-view-result').addEventListener('click', async () =>
 		listAnswerDOM.appendChild(div);
 	});
 
-	// $("#modalResult").modal("hide");
 	$("#modalViewResult").modal("show");
 });

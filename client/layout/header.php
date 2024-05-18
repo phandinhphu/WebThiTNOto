@@ -1,5 +1,5 @@
 <?php
-$exams = getRows('SELECT * FROM exam WHERE status = 1');
+$examsMenu = getRows('SELECT * FROM exam WHERE status = 1');
 ?>
 <header>
     <div class="header">
@@ -18,7 +18,7 @@ $exams = getRows('SELECT * FROM exam WHERE status = 1');
                     <li class="first__items">
                         <a class="first__items-link" href="?module=pages&action=thithu">Thi thử</a>
                         <ul class="context__list">
-                            <?php foreach ($exams as $exam) : ?>
+                            <?php foreach ($examsMenu as $exam) : ?>
                                 <li class="context__items">
                                     <a class="context__items-link" href="?module=pages&action=thithu&exam_name=<?php echo $exam['examName']; ?>"><?php echo $exam['examName']; ?></a>
                                 </li>

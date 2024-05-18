@@ -8,31 +8,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $timeComplete = $anwser['timeComplete'];
 
     $score = 0;
-    $total = 10;
-    $cnt = 0;
+    $total = 40;
+    $cntTrue = 0;
+    $cntFalse = 0;
+    $dataAnwser = date('Y-m-d H:i:s');
     foreach ($anwser['userAnswers'] as $key => $value) {
         $trueAns = getRow('SELECT * FROM questions WHERE id = :id', ['id' => explode('-', $key)[1]]);
         if ($trueAns['answer'] === $value) {
-            ++$cnt;
+            ++$cntTrue;
+        } else {
+            ++$cntFalse;
         }
         $dataSql = [
             'userId' => $_SESSION['user']['id'],
             'questionId' => explode('-', $key)[1],
             'answerUser' => $value,
             'result' => $trueAns['answer'] === $value ? 1 : 0,
-            'dateAnswer' => date('Y-m-d H:i:s')
+            'dateAnswer' => $dataAnwser
         ];
         insert('history', $dataSql);
     }
     
-    $score = round(100 * $cnt / $total, 2);
+    $cntTrong = 0;
+    if ($cntTrue + $cntFalse < $total) {
+        $cntTrong = $total - $cntTrue - $cntFalse;
+    }
+
+    $score = round(100 * $cntTrue / $total, 2);
 
     $dataSql = [
         'userId' => $_SESSION['user']['id'],
         'examName' => $trueAns['chuDe'],
         'score' => $score,
         'timeComplete' => $timeComplete,
-        'testDate' => date('Y-m-d H:i:s')
+        'testDate' => date('Y-m-d H:i:s'),
+        'soCauDung' => $cntTrue,
+        'soCauSai' => $cntFalse,
+        'soCauTrong' => $cntTrong,
+        'ketQua' => $score >= 80 ? 'Đậu' : 'Rớt'
     ];
 
     insert('result', $dataSql);

@@ -7,9 +7,30 @@ $questions = getRows('SELECT history.*, questions.question FROM history, questio
                         WHERE history.questionId = questions.id and userId = :userId
                         ORDER BY dateAnswer DESC LIMIT ' . $start . ', ' . $limit, ['userId' => $_SESSION['user']['id']]);
 
+
 $total = getRow('SELECT count(*) as total FROM history WHERE userId = :userId', ['userId' => $_SESSION['user']['id']]);
 $total_records = $total['total'];
 $total_pages = ceil($total_records / $limit);
+
+if (isset($_GET['examName']) && empty($_GET['dateAnswer'])) {
+    $total = getRow('SELECT count(*) as total FROM history, questions 
+                    WHERE history.questionId = questions.id and userId = :userId and chuDe = :examName', ['userId' => $_SESSION['user']['id'], 'examName' => $_GET['examName']]);
+    $total_pages = ceil($total['total'] / $limit);
+    $questions = getRows('SELECT history.*, questions.question FROM history, questions
+                        WHERE history.questionId = questions.id and userId = :userId and chuDe = :examName
+                        ORDER BY dateAnswer DESC LIMIT ' . $start . ', ' . $limit, ['userId' => $_SESSION['user']['id'], 'examName' => $_GET['examName']]);
+} elseif (isset($_GET['dateAnswer']) && empty($_GET['examName'])) {
+    $questions = getRows('SELECT history.*, questions.question FROM history, questions
+                        WHERE history.questionId = questions.id and userId = :userId
+                        ORDER BY dateAnswer ' . $_GET['dateAnswer'] . ' LIMIT ' . $start . ', ' . $limit, ['userId' => $_SESSION['user']['id']]);
+} elseif (isset($_GET['examName']) && isset($_GET['dateAnswer'])) {
+    $total = getRow('SELECT count(*) as total FROM history, questions
+                    WHERE history.questionId = questions.id and userId = :userId and chuDe = :examName', ['userId' => $_SESSION['user']['id'], 'examName' => $_GET['examName']]);
+    $total_pages = ceil($total['total'] / $limit);
+    $questions = getRows('SELECT history.*, questions.question FROM history, questions
+                        WHERE history.questionId = questions.id and userId = :userId and chuDe = :examName
+                        ORDER BY dateAnswer ' . $_GET['dateAnswer'] . ' LIMIT ' . $start . ', ' . $limit, ['userId' => $_SESSION['user']['id'], 'examName' => $_GET['examName']]);
+}
 
 ?>
 <!DOCTYPE html>
@@ -45,7 +66,7 @@ $total_pages = ceil($total_records / $limit);
                                         <a class="list-group-link" href="?module=pages&action=historyQuestion">Lịch sử câu hỏi</a>
                                     </li>
                                     <li class="list-group-item">
-                                        <a class="list-group-link" href="?module=pages&action=history">Lịch sử bài thi</a>
+                                        <a class="list-group-link" href="?module=pages&action=historyExam">Lịch sử bài thi</a>
                                     </li>
                                 </ul>
                             </div>
@@ -59,7 +80,9 @@ $total_pages = ceil($total_records / $limit);
                                 </h3>
                             </div>
                             <div class="card-body">
-                                <form action="" method="get">
+                                <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="get">
+                                    <input type="hidden" name="module" value="pages">
+                                    <input type="hidden" name="action" value="historyQuestion">
                                     <div class="form-group">
                                         <label for="examName">Chọn bài thi</label>
                                         <?php
@@ -90,6 +113,7 @@ $total_pages = ceil($total_records / $limit);
                                     </div>
 
                                     <button type="submit" class="btn btn-primary mt-3">Lọc</button>
+                                    <a class="btn btn-primary mt-3 ml-4" href="?module=pages&action=historyQuestion">Hủy lọc</a>
                                 </form>
                             </div>
                         </div>
@@ -144,7 +168,7 @@ $total_pages = ceil($total_records / $limit);
                                     <ul class="pagination" style="flex-wrap: wrap;">
                                         <?php if ($page > 1) : ?>
                                             <li class="page-item">
-                                                <a class="page-link" href="?module=pages&action=historyQuestion&page=<?php echo $page - 1; ?>" aria-label="Previous">
+                                                <a class="page-link" href="?module=pages&action=historyQuestion<?= isset($_GET['examName']) ? '&examName='.$_GET['examName'] : '' ?><?= isset($_GET['dateAnswer']) ? '&dateAnswer='.$_GET['dateAnswer'] : '' ?>&page=<?php echo $page - 1; ?>" aria-label="Previous">
                                                     <span aria-hidden="true">&laquo;</span>
                                                     <span class="sr-only">Previous</span>
                                                 </a>
@@ -152,12 +176,12 @@ $total_pages = ceil($total_records / $limit);
                                         <?php endif; ?>
 
                                         <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
-                                            <li class="page-item <?php echo $page == $i ? 'active' : ''; ?>"><a class="page-link" href="?module=pages&action=historyQuestion&page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+                                            <li class="page-item <?php echo $page == $i ? 'active' : ''; ?>"><a class="page-link" href="?module=pages&action=historyQuestion<?= isset($_GET['examName']) ? '&examName='.$_GET['examName'] : '' ?><?= isset($_GET['dateAnswer']) ? '&dateAnswer='.$_GET['dateAnswer'] : '' ?>&page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
                                         <?php endfor; ?>
 
                                         <?php if ($page < $total_pages) : ?>
                                             <li class="page-item">
-                                                <a class="page-link" href="?module=pages&action=historyQuestion&page=<?php echo $page + 1; ?>" aria-label="Next">
+                                                <a class="page-link" href="?module=pages&action=historyQuestion<?= isset($_GET['examName']) ? '&examName='.$_GET['examName'] : '' ?><?= isset($_GET['dateAnswer']) ? '&dateAnswer='.$_GET['dateAnswer'] : '' ?>&page=<?php echo $page + 1; ?>" aria-label="Next">
                                                     <span aria-hidden="true">&raquo;</span>
                                                     <span class="sr-only">Next</span>
                                                 </a>

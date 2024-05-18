@@ -4,7 +4,7 @@ require_once '../../db/database.php';
 
 if (isset($_GET['exam_name'])) {
     $examName = $_GET['exam_name'];
-    $question = getRows('SELECT * FROM questions WHERE chuDe = :chuDe ORDER BY RAND() LIMIT 10', ['chuDe' => $examName]);
+    $question = getRows('SELECT * FROM questions WHERE chuDe = :chuDe ORDER BY RAND() LIMIT 40', ['chuDe' => $examName]);
     $timeLimit = getRow('SELECT * FROM exam WHERE examName = :examName', ['examName' => $examName])['timeLimit'];
     
     if ($question) {
