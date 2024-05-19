@@ -1,13 +1,25 @@
 <footer class="footer">
-    <div class="grid wide">
-        <div class="row">
-            <div class="c-6">
-                <p>&copy; 2021 - Todos os direitos reservados</p>
-            </div>
-            <div class="col-md-6">
-                <p class="text-right">Desenvolvido por <a href="
-                https://www.linkedin.com/in/luan-fernando-oliveira-7b2b3b1b3/" target="_blank">Luan Fernando</a></p>
-            </div>
-        </div>
-    </div>
+<ul class="contact">
+      <li class="contact__item">
+        <a class="contact__item-icon" href="https://github.com/phandinhphu">
+          <i class="fa fa-github" aria-hidden="true"></i>
+        </a>
+      </li>
+      <li class="contact__item">
+        <a class="contact__item-icon" href="#">
+          <i class="fa fa-instagram" aria-hidden="true"></i>
+        </a>
+      </li>
+      <li class="contact__item">
+        <a class="contact__item-icon" href="#">
+          <i class="fa fa-facebook" aria-hidden="true"></i>
+        </a>
+      </li>
+      <li class="contact__item">
+        <a class="contact__item-icon" href="#">
+          <i class="fa fa-twitter" aria-hidden="true"></i>
+        </a>
+      </li>
+    </ul>
+    <p class="text-center text-white">© 2024 Phan Đình Phú</p>
 </footer>

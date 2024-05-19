@@ -24,7 +24,6 @@ if ($_SESSION['user']['status'] == 0) {
     <!-- link fontawsome min css -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-
     <link rel="stylesheet" href="client/assets/css/grid.css">
     <link rel="stylesheet" href="client/assets/css/main.css">
 </head>

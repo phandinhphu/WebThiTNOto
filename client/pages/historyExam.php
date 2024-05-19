@@ -144,7 +144,7 @@ if (isset($_GET['examName']) && empty($_GET['testDate'])) {
                                                 <tr>
                                                     <th scope="row"><?php echo $key + 1; ?></th>
                                                     <td><?php echo $exam['examName']; ?></td>
-                                                    <td><?php echo $exam['score']; ?></td>
+                                                    <td><?php echo $exam['score']; ?>/100</td>
                                                     <td><?php echo $exam['timeComplete']; ?></td>
                                                     <td><?php echo $exam['testDate']; ?></td>
                                                     <td style="
