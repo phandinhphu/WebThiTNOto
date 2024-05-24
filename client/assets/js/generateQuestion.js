@@ -61,7 +61,7 @@ document.querySelectorAll(".btn.btn-start").forEach((btn) => {
 		col.appendChild(btnSubmit);
 
 		btnSubmit.addEventListener("click", () => {
-			handleBtnSubmitClick(timeLimit);
+			handleBtnSubmitClick(timeLimit, totalQuestion);
 		});
 
 		generateListBtnId(questions);
@@ -111,13 +111,13 @@ document.querySelectorAll(".btn.btn-start").forEach((btn) => {
 					});
 				
 				let timeComplete = `${timeLimit}:00`;
-				submitAnswer({ userAnswers, timeComplete }, timeout = 0);
+				submitAnswer({ userAnswers, timeComplete, totalQuestion }, timeout = 0);
 			}
 		}, 1000);
 	});
 });
 
-function handleBtnSubmitClick(timeLimit) {
+function handleBtnSubmitClick(timeLimit, totalQuestion) {
 	let isComplete = true;
 	const groupByName = {};
 	const userAnswers = {};
@@ -159,6 +159,7 @@ function handleBtnSubmitClick(timeLimit) {
 		const data = {
 			userAnswers,
 			timeComplete,
+			totalQuestion
 		};
 		submitAnswer(data);
 	}

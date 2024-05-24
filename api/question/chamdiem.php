@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $timeComplete = $anwser['timeComplete'];
 
     $score = 0;
-    $total = 40;
+    $total = $anwser['totalQuestion'];
     $cntTrue = 0;
     $cntFalse = 0;
     $dataAnwser = date('Y-m-d H:i:s');
