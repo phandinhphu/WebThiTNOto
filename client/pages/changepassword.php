@@ -29,7 +29,8 @@ if (!isset($_SESSION['id'])) {
             <label for="repassword">Nhập lại mật khẩu</label>
         </div>
         <div class="btn__submit">
-            <button type="submit">Đổi mật khẩu</button>
+            <button type="submit" class="btn">Đổi mật khẩu</button>
+            <a href="?client=pages&action=login" class="link__register">Đăng nhập</a>
         </div>
     </div>
 

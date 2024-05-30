@@ -17,6 +17,7 @@ document.querySelectorAll(".btn.btn-start").forEach((btn) => {
 
 		document.getElementById("fixed-info").style.display = "block";
 		document.getElementById("total-question").textContent =`Số câu hỏi: ${totalQuestion}`;
+		document.querySelector("#fixed-info h2").textContent = `Tên bài thi: ${questions[0].chuDe}`;
 
 		const panel = document.querySelector(".panel-group");
 		panel.innerHTML = "";

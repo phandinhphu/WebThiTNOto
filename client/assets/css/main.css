@@ -95,7 +95,7 @@ header {
 .context__list {
 	position: absolute;
 	z-index: 1;
-	top: 28px;
+	top: 34px;
 	left: 0;
 	width: calc(100% + 18rem);
 	list-style: none;

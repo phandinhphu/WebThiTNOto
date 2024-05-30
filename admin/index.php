@@ -29,6 +29,7 @@ require_once '../includes/session.php';
     <!-- Custom CSS -->
     <link href="./assets/css/style.min.css" rel="stylesheet">
     <link href="./assets/css/custom.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -134,6 +135,20 @@ require_once '../includes/session.php';
                                 <span class="hide-menu">Question</span>
                             </a>
                         </li>
+
+                        <li class="sidebar-item pt-2">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../admin/index.php?layout=account" aria-expanded="false">
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                                <span class="hide-menu">Account</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item pt-2">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../admin/index.php?layout=user" aria-expanded="false">
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                                <span class="hide-menu">User</span>
+                            </a>
+                        </li>
                     </ul>
 
                 </nav>
@@ -154,12 +169,12 @@ require_once '../includes/session.php';
             <div class="page-breadcrumb bg-white">
                 <div class="row align-items-center">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title"><?= isset($_GET['layout']) ? $_GET['layout'] : 'Dashboard' ?></h4>
+                        <h4 class="page-title"><?= isset($_GET['layout']) ? $_GET['layout'] : 'dashboard' ?></h4>
                     </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                         <div class="d-md-flex">
                             <ol class="breadcrumb ms-auto">
-                                <li><a href="#" class="fw-normal"><?= isset($_GET['layout']) ? $_GET['layout'] : 'Dashboard' ?></a></li>
+                                <li><a href="#" class="fw-normal"><?= isset($_GET['layout']) ? $_GET['layout'] : 'dashboard' ?></a></li>
                             </ol>
                         </div>
                     </div>
@@ -179,6 +194,10 @@ require_once '../includes/session.php';
                     require_once 'exam/exam.php';
                 } else if ($layout == 'question') {
                     require_once 'question/question.php';
+                } else if ($layout == 'account') {
+                    require_once 'account/account.php';
+                } else if ($layout == 'user') {
+                    require_once 'user/user.php';
                 } else {
                     require_once 'dashboard.php';
                 }
@@ -416,6 +435,217 @@ require_once '../includes/session.php';
     </div>
     <!-- End Modal Edit Question -->
 
+    <!-- Modal Edit User -->
+    <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editQuestionModalLabel">Edit User</h5>
+                    <button id="edit-user-icon-close" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="userName" class="col-form-label">Tên</label>
+                            <input type="text" class="form-control" id="userName" name="userName">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone" class="col-form-label">Phone</label>
+                            <input type="text" class="form-control" id="phone" name="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="col-form-label">Email</label>
+                            <input type="text" class="form-control" id="email" name="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="status" class="col-form-label">Trạng thái:</label>
+                            <select name="status" class="form-control" id="status">
+                                <option value="1">Kích hoạt</option>
+                                <option value="0">Không kích hoạt</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="js-edit-user-close" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button id="js-edit-user-save" type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal Edit User -->
+
+    <!-- Modal Add User -->
+    <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editQuestionModalLabel">Edit User</h5>
+                    <button id="add-user-icon-close" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="addUserName" class="col-form-label">Tên</label>
+                            <input type="text" class="form-control" id="addUserName" name="addUserName">
+                        </div>
+                        <div class="form-group">
+                            <label for="addPassword" class="col-form-label">Password</label>
+                            <input type="password" class="form-control" id="addPassword" name="addPassword">
+                        </div>
+                        <div class="form-group">
+                            <label for="addPhone" class="col-form-label">Phone</label>
+                            <input type="text" class="form-control" id="addPhone" name="addPhone">
+                        </div>
+                        <div class="form-group">
+                            <label for="addEmail" class="col-form-label">Email</label>
+                            <input type="email" class="form-control" id="addEmail" name="addEmail">
+                        </div>
+                        <div class="form-group">
+                            <label for="addStatus" class="col-form-label">Trạng thái:</label>
+                            <select name="addStatus" class="form-control" id="addStatus">
+                                <option value="1">Kích hoạt</option>
+                                <option value="0">Không kích hoạt</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="js-add-user-close" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button id="js-add-user-save" type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal Add User -->
+
+    <!-- Modal Thống Kê Bài Thi -->
+    <div class="modal fade" id="thongKeBaiThiModal" tabindex="-1" role="dialog" aria-labelledby="thongKeBaiThiModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="thongKeBaiThiModalLabel">Thống Kê Bài Thi</h5>
+                    <button id="thong-ke-icon-close" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">Tên Bài Thi</th>
+                                <th scope="col">Số Người Làm</th>
+                                <th scope="col">Thời Gian Làm</th>
+                                <th scope="col">Số Câu Hỏi</th>
+                                <th scope="col">Trạng Thái</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $sql = "SELECT exam.*, COUNT(result.id) AS 'soNguoiLam'
+                                    FROM exam left JOIN result
+                                    on result.examName = exam.examName
+                                    GROUP BY exam.examName";
+
+                            $exams = getRows($sql);
+                            ?>
+                            <?php foreach ($exams as $exam) : ?>
+                                <tr>
+                                    <td><?= $exam['examName'] ?></td>
+                                    <td><?= $exam['soNguoiLam'] ?></td>
+                                    <td><?= $exam['timeLimit'] ?></td>
+                                    <td><?= $exam['soCauHoi'] ?></td>
+                                    <td class="<?= $exam['status'] == 1 ? "text-success" : "text-danger" ?>">
+                                        <?= $exam['status'] == 1 ? "Đang mở" : "Đang đóng" ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                    <div class="modal-footer">
+                        <button id="thong-ke-icon-close" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal Thống Kê Bài Thi -->
+
+    <!-- Modal sendMail rPassword -->
+    <div class="modal fade" id="rpwUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editQuestionModalLabel">Đổi mật khẩu</h5>
+                    <button id="rpw-user-icon-close" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="subject" style="margin-bottom: 6px;">Subject</label>
+                            <input type="text" class="form-control" name="subject" id="subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="content" style="margin-bottom: 6px;">Content</label>
+                            <textarea class="form-control" name="content" id="content" rows="5" readonly>Vui lòng click vào link sau để đổi mật khẩu:
+                            </textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="js-rpw-user-close" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button id="js-rpw-user-save" type="button" class="btn btn-primary">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal sendMail rPassword -->
+
+    <!-- Modal xem thông tin các bài thi người dùng làm -->
+    <div class="modal fade" id="thongTinBaiThiModal" tabindex="-1" role="dialog" aria-labelledby="thongTinBaiThiModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document" style="max-width: 1200px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="thongTinBaiThiModalLabel">Thông Tin Chi Tiết</h5>
+                    <button id="thong-tin-icon-close" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">STT</th>
+                                <th scope="col">Tên bài thi</th>
+                                <th scope="col">Số câu hỏi</th>
+                                <th scope="col">Số câu đúng</th>
+                                <th scope="col">Số câu sai</th>
+                                <th scope="col">Thời gian làm</th>
+                                <th scope="col">Score</th>
+                                <th scope="col">Kết quả</th>
+                                <th scope="col">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button id="js-mang-user-close" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal -->
+
     <!-- Js add edit delete exam -->
     <script src="./assets/js/exam.js"></script>
     <!-- Js add edit delete exam -->
@@ -423,6 +653,18 @@ require_once '../includes/session.php';
     <!-- Js add edit delete question -->
     <script src="./assets/js/question.js"></script>
     <!-- Js add edit delete question -->
+
+    <!-- Js add edit delete account -->
+    <script src="./assets/js/account.js"></script>
+    <!-- Js add edit delete account -->
+
+    <!-- Js manager user's exams -->
+    <script src="./assets/js/user.js"></script>
+    <!-- Js manager user's exams -->
+
+    <!-- Js dashboard -->
+    <script src="./assets/js/dashboard.js"></script>
+    <!-- Js dashboard -->
 
     <!-- ============================================================== -->
     <!-- All Jquery -->

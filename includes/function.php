@@ -25,6 +25,7 @@ function sendMail($to, $subject, $message) {
 
         //Content
         $mail->isHTML(true);                                  //Set email format to HTML
+        $mail->CharSet = 'UTF-8';
         $mail->Subject = $subject;
         $mail->Body    = $message;
 
@@ -33,4 +34,18 @@ function sendMail($to, $subject, $message) {
     } catch (Exception $e) {
         return false;
     }
+}
+
+function getTotalPassAndFail($userId) {
+    $sql = 'SELECT users.userName, 
+                COUNT(result.userId) AS "Total Test", 
+                COALESCE(SUM(CASE WHEN result.ketQua = "Đậu" THEN 1 ELSE 0 END), 0) AS "Total Pass",
+                COALESCE(SUM(CASE WHEN result.ketQua = "Rớt" THEN 1 ELSE 0 END), 0) AS "Total Failure"
+            FROM users LEFT JOIN result 
+            ON users.id = result.userId
+            WHERE users.id = ' . $userId . '
+            GROUP BY users.userName';
+    $res = getRow($sql);
+    
+    return $res;
 }

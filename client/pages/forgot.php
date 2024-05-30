@@ -10,13 +10,15 @@
 <body>
     <div class="form__login">
         <h2>Quên mật khẩu</h2>
+        <div id="loading" style="display:none;">Please wait...</div>
         <div class="alert"></div>
         <div class="input__login">
             <input id="email" type="email" name="email" placeholder="Email..." required>
             <label for="email">Email</label>
         </div>
         <div class="btn__submit">
-            <button type="submit">Gửi email</button>
+            <button id="forgot-btn" class="btn" type="submit">Gửi email</button>
+            <a href="?client=pages&action=login" class="link__register">Đăng nhập</a>
         </div>
     </div>
 
@@ -27,6 +29,10 @@
         btnSubmit.addEventListener('click', (e) => {
             let email = document.getElementById('email').value;
 
+            $('#loading').show();
+            $('#forgot-btn').addClass('btn--disabled');
+            $('.link__register').addClass('disabled');
+
             $.ajax({
                 url: 'http://localhost/WebThiTN-Oto/client/auth/forgotpassword.php',
                 type: 'POST',
@@ -36,8 +42,14 @@
                 success: (res) => {
                     if (res.status == 200) {
                         $('.alert').html(`<div class="alert alert-success" role="alert">${res.msg}</div>`);
+                        $('#loading').hide();
+                        $('#forgot-btn').removeClass('btn--disabled');
+                        $('.link__register').removeClass('disabled');
                     } else {
                         $('.alert').html(`<div class="alert alert-danger" role="alert">${res.msg}</div>`);
+                        $('#loading').hide();
+                        $('#forgot-btn').removeClass('btn--disabled');
+                        $('.link__register').removeClass('disabled');
                     }
                 }
             });

@@ -13,6 +13,7 @@ if (empty($_GET['token'])) {
         ];
         try {
             $result = update('users', $data, ['id' => $activeTokenDB['id']]);
+            delete('login', ['userId' => $_SESSION['user']['id']]);
             if (isset($_SESSION['user'])) {
                 session_destroy();
             }

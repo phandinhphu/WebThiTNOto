@@ -62,7 +62,8 @@ if ($_SESSION['user']['status'] == 0) {
                                                 <?= $exam['examName'] ?>
                                             </div>
                                             <div class="panel-footer">
-                                                <div class="">Thời gian: <?= $exam['timeLimit'] ?> phút</div>
+                                                <div class="mb-2">Thời gian: <?= $exam['timeLimit'] ?> phút</div>
+                                                <div class="mb-2">Số câu hỏi: <?= $exam['soCauHoi'] ?> câu</div>
                                                 <div class="">
                                                     <button exam-name="<?= $exam['examName'] ?>" class="btn btn-primary btn-start" type="button" align="center">Bắt đầu</button>
                                                 </div>
@@ -84,7 +85,8 @@ if ($_SESSION['user']['status'] == 0) {
                                                     <?= $exam['examName'] ?>
                                                 </div>
                                                 <div class="panel-footer">
-                                                    <div class="">Thời gian: <?= $exam['timeLimit'] ?> phút</div>
+                                                    <div class="mb-2">Thời gian: <?= $exam['timeLimit'] ?> phút</div>
+                                                    <div class="mb-2">Số câu hỏi: <?= $exam['soCauHoi'] ?> câu</div>
                                                     <div class="">
                                                         <button exam-name="<?= $exam['examName'] ?>" class="btn btn-primary btn-start" type="button" align="center">Bắt đầu</button>
                                                     </div>

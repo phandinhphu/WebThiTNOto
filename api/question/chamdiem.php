@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'examName' => $trueAns['chuDe'],
         'score' => $score,
         'timeComplete' => $timeComplete,
-        'testDate' => date('Y-m-d H:i:s'),
+        'testDate' => $dataAnwser,
         'soCauDung' => $cntTrue,
         'soCauSai' => $cntFalse,
         'soCauTrong' => $cntTrong,

@@ -63,6 +63,9 @@ $examNames = getRows("SELECT * FROM exam");
                     </label>
                     <form action="?layout=question" method="get">
                         <input type="hidden" name="layout" value="question">
+                        <?php if (isset($_GET['search'])) { ?>
+                            <input type="hidden" name="search" value="<?= $_GET['search'] ?>">
+                        <?php } ?>
                         <select name="_sort" id="sorted">
                             <option value="hard">Khó nhất</option>
                             <option value="easy">Dễ nhất</option>
@@ -71,6 +74,7 @@ $examNames = getRows("SELECT * FROM exam");
                             <?php endforeach; ?>
                         </select>
                         <button class="btn btn-primary" type="submit">Apply Filter</button>
+                        <a href="?layout=question" class="btn btn-danger">Cancel Filter</a>
                     </form>
                 </div>
                 <div class="search__group">

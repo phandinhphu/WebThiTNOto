@@ -11,7 +11,7 @@
 
 <body>
     <div class="form__login">
-        <h2>Đăng nhập</h2>
+        <h2>Đăng ký</h2>
         <div id="loading" style="display:none;">Please wait...</div>
         <div class="alert" role="alert"></div>
         <div class="input__login">
