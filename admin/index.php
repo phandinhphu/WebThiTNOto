@@ -646,6 +646,61 @@ require_once '../includes/session.php';
     </div>
     <!-- End Modal -->
 
+    <!-- Modal view detail exam -->
+    <div class="modal fade" id="modalViewResult" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Đáp án</h4>
+                </div>
+                <div class="modal-body" style="
+                    overflow: scroll;
+                    height: 400px;
+                    overflow-y: scroll;
+                    overflow-x: hidden;
+                ">
+                    <div id="list-answer"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger js-close-vdetail" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal view detail exam -->
+
+    <!-- Modal update score exam -->
+    <div class="modal fade" id="modalUpdateScore" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Cập nhật điểm</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="numoftrue">Số câu đúng</label>
+                            <input type="number" class="form-control" name="numoftrue" id="numoftrue" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="numoffalse">Số câu sai</label>
+                            <input type="number" class="form-control" name="numoffalse" id="numoffalse" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="score" style="margin-bottom: 6px;">Điểm</label>
+                            <input type="number" class="form-control" name="score" id="score" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger js-close-updateScore" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary" id="js-update-score">Cập nhật</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End modal update score exam -->
+
     <!-- Js add edit delete exam -->
     <script src="./assets/js/exam.js"></script>
     <!-- Js add edit delete exam -->

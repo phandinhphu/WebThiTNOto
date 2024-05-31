@@ -145,7 +145,16 @@ if (isset($_GET['search']) && empty($_GET['_sort'])) {
                             <td><?= $res['Total Pass'] ?></td>
                             <td><?= $res['Total Failure'] ?></td>
                             <td>
-                                <button class="btn btn-cyan js-btn-detail" value="<?= $user['id'] ?>">Xem chi tiết</button>
+                                <button class="btn btn-cyan js-btn-detail" value="<?= $user['id'] ?>"
+                                    style="
+                                        <?php if ($res['Total Test'] == 0) { ?>
+                                            pointer-events: none;
+                                            color: #fff;
+                                            background-color: #ccc;
+                                            border-color: #ccc;
+                                        <?php } ?>
+                                    "
+                                >Xem chi tiết</button>
                             </td>
                         </tr>
                     <?php endforeach; ?>

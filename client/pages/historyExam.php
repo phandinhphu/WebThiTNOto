@@ -150,7 +150,7 @@ if (isset($_GET['examName']) && empty($_GET['testDate'])) {
                                                     <td style="
                                                         display: flex;
                                                     ">
-                                                        <button class="btn btn-primary btn-detail" test-date="<?= $exam['testDate'] ?>" >Chi tiết</button>
+                                                        <button class="btn btn-primary btn-detail" value="<?= $exam['userId'] ?>" test-date="<?= $exam['testDate'] ?>" >Chi tiết</button>
                                                         <button class="btn btn-success btn-export ml-2" test-date="<?= $exam['testDate'] ?>" >Export excel</button>
                                                     </td>
                                                 </tr>
@@ -241,8 +241,9 @@ if (isset($_GET['examName']) && empty($_GET['testDate'])) {
         const btnDetail = document.querySelectorAll('.btn-detail');
         btnDetail.forEach(item => {
             item.addEventListener('click', async () => {
+                let userId = item.getAttribute('value');
                 let testDate = item.getAttribute('test-date');
-                const response = await fetch('http://localhost/WebThiTN-Oto/api/question/getQuestionByTestDate.php?testDate=' + testDate);
+                const response = await fetch(`http://localhost/WebThiTN-Oto/api/question/getQuestionByTestDate.php?testDate=${testDate}&userId=${userId}`);
                 const {
                     data: questions
                 } = await response.json();
