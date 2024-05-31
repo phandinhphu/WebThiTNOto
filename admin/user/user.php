@@ -146,14 +146,14 @@ if (isset($_GET['search']) && empty($_GET['_sort'])) {
                             <td><?= $res['Total Failure'] ?></td>
                             <td>
                                 <button class="btn btn-cyan js-btn-detail" value="<?= $user['id'] ?>"
+                                <?php if ($res['Total Test'] == 0) { ?>
                                     style="
-                                        <?php if ($res['Total Test'] == 0) { ?>
                                             pointer-events: none;
                                             color: #fff;
                                             background-color: #ccc;
                                             border-color: #ccc;
-                                        <?php } ?>
-                                    "
+                                            "
+                                <?php } ?>
                                 >Xem chi tiết</button>
                             </td>
                         </tr>

@@ -176,8 +176,32 @@ $(document).on('click', '#js-update-score', async function () {
     }
 });
 
-$(document).on('click', '.js-delete-mngex', function () {
+$(document).on('click', '.js-delete-mngex', async function () {
     let id = $(this).attr('value');
     let testDate = $(this).attr('test-date');
-    console.log(id, testDate);
+
+    if (!confirm("Bạn có chắc chắn muốn xóa?")) {
+        return;
+    }
+
+    let data = {
+        userId: id,
+        testDate: testDate
+    };
+
+    const request = await fetch('http://localhost/WebThiTN-Oto/admin/user/delete-exam-user.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+
+    const { status, message } = await request.json();
+    if (status == 200) {
+        alert(message);
+        location.reload();
+    } else {
+        alert(message);
+    }
 });
