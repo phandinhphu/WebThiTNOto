@@ -49,3 +49,28 @@ function getTotalPassAndFail($userId) {
     
     return $res;
 }
+
+$accents = array(
+    'a' => '/[àáảãạăắằẳẵặâấầẩẫậ]/u',
+    'd' => '/[đ]/u',
+    'e' => '/[èéẻẽẹêếềểễệ]/u',
+    'i' => '/[ìíỉĩị]/u',
+    'o' => '/[òóỏõọôốồổỗộơớờởỡợ]/u',
+    'u' => '/[ùúủũụưứừửữự]/u',
+    'y' => '/[ỳýỷỹỵ]/u',
+    'A' => '/[ÀÁẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬ]/u',
+    'D' => '/[Đ]/u',
+    'E' => '/[ÈÉẺẼẸÊẾỀỂỄỆ]/u',
+    'I' => '/[ÌÍỈĨỊ]/u',
+    'O' => '/[ÒÓỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢ]/u',
+    'U' => '/[ÙÚỦŨỤƯỨỪỬỮỰ]/u',
+    'Y' => '/[ỲÝỶỸỴ]/u',    
+);
+
+function removeAccent($str) {
+    global $accents;
+    foreach ($accents as $nonUnicode => $unicode) {
+        $str = preg_replace($unicode, $nonUnicode, $str);
+    }
+    return $str;
+}

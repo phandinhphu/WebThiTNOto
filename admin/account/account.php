@@ -96,14 +96,46 @@ $examNames = getRows("SELECT * FROM exam");
                             <input type="hidden" name="search" value="<?= $_GET['search'] ?>">
                         <?php } ?>
                         <select name="_sort" id="sorted">
-                            <option value="1">Đã kích hoạt</option>
-                            <option value="0">Chưa kích hoạt</option>
-                            <option value="name-desc">Tên giảm dần</option>
-                            <option value="name-asc">Tên tăng dần</option>
-                            <option value="date-desc">Ngày tham gia giảm dần</option>
-                            <option value="date-asc">Ngày tham gia tăng dần</option>
-                            <option value="updated-desc">Ngày updated giảm dần</option>
-                            <option value="updated-asc">Ngày updated tăng dần</option>
+                            <option value="1"
+                            <?php if (isset($_GET['_sort']) && $_GET['_sort'] == 1) {
+                                echo 'selected';
+                            } ?>
+                            >Đã kích hoạt</option>
+                            <option value="0"
+                            <?php if (isset($_GET['_sort']) && $_GET['_sort'] == 0) {
+                                echo 'selected';
+                            } ?>
+                            >Chưa kích hoạt</option>
+                            <option value="name-desc"
+                            <?php if (isset($_GET['_sort']) && $_GET['_sort'] == 'name-desc') {
+                                echo 'selected';
+                            } ?>
+                            >Tên giảm dần</option>
+                            <option value="name-asc"
+                            <?php if (isset($_GET['_sort']) && $_GET['_sort'] == 'name-asc') {
+                                echo 'selected';
+                            } ?>
+                            >Tên tăng dần</option>
+                            <option value="date-desc"
+                            <?php if (isset($_GET['_sort']) && $_GET['_sort'] == 'date-desc') {
+                                echo 'selected';
+                            } ?>
+                            >Ngày tham gia giảm dần</option>
+                            <option value="date-asc"
+                            <?php if (isset($_GET['_sort']) && $_GET['_sort'] == 'date-asc') {
+                                echo 'selected';
+                            } ?>
+                            >Ngày tham gia tăng dần</option>
+                            <option value="updated-desc"
+                            <?php if (isset($_GET['_sort']) && $_GET['_sort'] == 'updated-desc') {
+                                echo 'selected';
+                            } ?>
+                            >Ngày updated giảm dần</option>
+                            <option value="updated-asc"
+                            <?php if (isset($_GET['_sort']) && $_GET['_sort'] == 'updated-asc') {
+                                echo 'selected';
+                            } ?>
+                            >Ngày updated tăng dần</option>
                         </select>
                         <button class="btn btn-primary" type="submit">Apply Filter</button>
                         <a href="?layout=account" class="btn btn-danger">Cancel Filter</a>
@@ -159,7 +191,7 @@ $examNames = getRows("SELECT * FROM exam");
         <?php
         if ($page > 1) {
         ?>
-            <a href="?layout=user&page=<?= $page - 1 ?><?= isset($_GET['_sort']) ? '&_sort=' . $_GET['_sort'] : '' ?><?= isset($_GET['search']) ? '&search=' . $_GET['search'] : '' ?>" class="pagination__prev">
+            <a href="?layout=account&page=<?= $page - 1 ?><?= isset($_GET['_sort']) ? '&_sort=' . $_GET['_sort'] : '' ?><?= isset($_GET['search']) ? '&search=' . $_GET['search'] : '' ?>" class="pagination__prev">
                 <i class="fa fa-arrow-left"></i>
             </a>
         <?php } ?>
@@ -167,13 +199,13 @@ $examNames = getRows("SELECT * FROM exam");
         <?php
         for ($i = 1; $i <= $totalPage; $i++) {
         ?>
-            <a href="?layout=user&page=<?= $i ?><?= isset($_GET['_sort']) ? '&_sort=' . $_GET['_sort'] : '' ?><?= isset($_GET['search']) ? '&search=' . $_GET['search'] : '' ?>" class="pagination__number <?= $i == $page ? 'pagination__number--active' : '' ?>"><?= $i ?></a>
+            <a href="?layout=account&page=<?= $i ?><?= isset($_GET['_sort']) ? '&_sort=' . $_GET['_sort'] : '' ?><?= isset($_GET['search']) ? '&search=' . $_GET['search'] : '' ?>" class="pagination__number <?= $i == $page ? 'pagination__number--active' : '' ?>"><?= $i ?></a>
         <?php } ?>
 
         <?php
         if ($page < $totalPage) {
         ?>
-            <a href="?layout=user&page=<?= $page + 1 ?><?= isset($_GET['_sort']) ? '&_sort=' . $_GET['_sort'] : '' ?><?= isset($_GET['search']) ? '&search=' . $_GET['search'] : '' ?>" class="pagination__next">
+            <a href="?layout=account&page=<?= $page + 1 ?><?= isset($_GET['_sort']) ? '&_sort=' . $_GET['_sort'] : '' ?><?= isset($_GET['search']) ? '&search=' . $_GET['search'] : '' ?>" class="pagination__next">
                 <i class="fa fa-arrow-right"></i>
             </a>
         <?php } ?>

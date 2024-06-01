@@ -17,66 +17,74 @@ if (isset($_GET['search']) && empty($_GET['_sort'])) {
     $search = $_GET['search'];
     $total = getRows("SELECT * FROM users WHERE userName LIKE '%$search%'");
     $totalPage = ceil(count($total) / $limit);
-    $users = getRows("SELECT * FROM result WHERE userName LIKE '%$search%' LIMIT $start, $limit");
+    $users = getRows("SELECT * FROM users WHERE userName LIKE '%$search%' LIMIT $start, $limit");
 }
 
-// if (isset($_GET['_sort'])) {
-//     switch ($_GET['_sort']) {
-//         case '1':
-//             $total = getRows("SELECT * FROM users WHERE status = 1");
-//             $totalPage = ceil(count($total) / $limit);
-//             $users = getRows("SELECT * FROM users WHERE status = 1 LIMIT $start, $limit");
-//             break;
-//         case '0':
-//             $total = getRows("SELECT * FROM users WHERE status = 0");
-//             $totalPage = ceil(count($total) / $limit);
-//             $users = getRows("SELECT * FROM users WHERE status = 0 LIMIT $start, $limit");
-//             break;
-//         case 'name-desc':
-//             $total = getRows("SELECT * FROM users ORDER BY userName DESC");
-//             $totalPage = ceil(count($total) / $limit);
-//             $users = getRows("SELECT * FROM users ORDER BY userName DESC LIMIT $start, $limit");
-//             break;
-//         case 'name-asc':
-//             $total = getRows("SELECT * FROM users ORDER BY userName ASC");
-//             $totalPage = ceil(count($total) / $limit);
-//             $users = getRows("SELECT * FROM users ORDER BY userName ASC LIMIT $start, $limit");
-//             break;
-//         case 'date-desc':
-//             $total = getRows("SELECT * FROM users ORDER BY createAt DESC");
-//             $totalPage = ceil(count($total) / $limit);
-//             $users = getRows("SELECT * FROM users ORDER BY createAt DESC LIMIT $start, $limit");
-//             break;
-//         case 'date-asc':
-//             $total = getRows("SELECT * FROM users ORDER BY createAt ASC");
-//             $totalPage = ceil(count($total) / $limit);
-//             $users = getRows("SELECT * FROM users ORDER BY createAt ASC LIMIT $start, $limit");
-//             break;
-//         case 'updated-desc':
-//             $total = getRows("SELECT * FROM users ORDER BY updateAt DESC");
-//             $totalPage = ceil(count($total) / $limit);
-//             $users = getRows("SELECT * FROM users ORDER BY updateAt DESC LIMIT $start, $limit");
-//             break;
-//         case 'updated-asc':
-//             $total = getRows("SELECT * FROM users ORDER BY updateAt ASC");
-//             $totalPage = ceil(count($total) / $limit);
-//             $users = getRows("SELECT * FROM users ORDER BY updateAt ASC LIMIT $start, $limit");
-//             break;
-//         }
-// }
+$userTmpl = [];
+foreach ($users as $user) {
+    $res = getTotalPassAndFail($user['id']);
+    $userTmpl[] = array_merge($user, $res);
+}
+$users = $userTmpl;
 
-// if (isset($_GET['_sort']) && isset($_GET['search'])) {
-//     $search = $_GET['search'];
-//     $newUsers = [];
-//     foreach ($users as $user) {
-//         $name1 = strtolower($user['userName']);
-//         $name2 = strtolower($search);
-//         if (strpos($name1, $name2) !== false) {
-//             array_push($newUsers, $user);
-//         }
-//     }
-//     $users = $newUsers;
-// }
+if (isset($_GET['_sort'])) {
+    $sort = $_GET['_sort'];
+    switch ($sort) {
+        case 'name-desc':
+            usort($users, function ($a, $b) {
+                return $b['userName'] <=> $a['userName'];
+            });
+            break;
+        case 'name-asc':
+            usort($users, function ($a, $b) {
+                return $a['userName'] <=> $b['userName'];
+            });
+            break;
+        case 'total-test-desc':
+            usort($users, function ($a, $b) {
+                return $b['Total Test'] <=> $a['Total Test'];
+            });
+            break;
+        case 'total-test-asc':
+            usort($users, function ($a, $b) {
+                return $a['Total Test'] <=> $b['Total Test'];
+            });
+            break;
+        case 'total-pass-desc':
+            usort($users, function ($a, $b) {
+                return $b['Total Pass'] <=> $a['Total Pass'];
+            });
+            break;
+        case 'total-pass-asc':
+            usort($users, function ($a, $b) {
+                return $a['Total Pass'] <=> $b['Total Pass'];
+            });
+            break;
+        case 'total-fail-desc':
+            usort($users, function ($a, $b) {
+                return $b['Total Failure'] <=> $a['Total Failure'];
+            });
+            break;
+        case 'total-fail-asc':
+            usort($users, function ($a, $b) {
+                return $a['Total Failure'] <=> $b['Total Failure'];
+            });
+            break;
+    }
+}
+
+if (isset($_GET['_sort']) && isset($_GET['search'])) {
+    $search = $_GET['search'];
+    $newUsers = [];
+    foreach ($users as $user) {
+        $name1 = strtolower(removeAccent($user['userName']));
+        $name2 = strtolower(removeAccent($search));
+        if (strpos($name1, $name2) !== false) {
+            $newUsers[] = $user;
+        }
+    }
+    $users = $newUsers;
+}
 
 ?>
 <div class="container-fluid">
@@ -89,28 +97,61 @@ if (isset($_GET['search']) && empty($_GET['_sort'])) {
                         <strong>Filter</strong>
                         <i class="fa fa-filter" aria-hidden="true"></i>
                     </label>
-                    <form action="?layout=account" method="get">
-                        <input type="hidden" name="layout" value="account">
+                    <form action="?layout=user" method="get">
+                        <input type="hidden" name="layout" value="user">
                         <?php if (isset($_GET['search'])) { ?>
                             <input type="hidden" name="search" value="<?= $_GET['search'] ?>">
                         <?php } ?>
-                        <select name="_sort" id="sorted">
-                            <option value="name-desc">Tên (Z-A)</option>
-                            <option value="name-asc">Tên (A-Z)</option>
-                            <option value="total-test-desc">Tổng bài làm (cao đến thấp)</option>
-                            <option value="total-test-asc">Tổng bài làm (thấp đến cao)</option>
-                            <option value="total-pass-desc">Tổng bài đậu (cao đến thấp)</option>
-                            <option value="total-pass-asc">Tổng bài đậu (thấp đến cao)</option>
-                            <option value="total-fail-desc">Tổng bài rớt (cao đến thấp)</option>
-                            <option value="total-fail-asc">Tổng bài rớt (thấp đến cao)</option>
+                        <select name="_sort" id="sorted"
+                        >
+                            <option value="name-desc"
+                            <?php if (isset($_GET['_sort']) && $_GET['_sort'] == 'name-desc') {
+                                echo 'selected';
+                            } ?>
+                            >Tên (Z-A)</option>
+                            <option value="name-asc"
+                            <?php if (isset($_GET['_sort']) && $_GET['_sort'] == 'name-asc') {
+                                echo 'selected';
+                            } ?>
+                            >Tên (A-Z)</option>
+                            <option value="total-test-desc"
+                            <?php if (isset($_GET['_sort']) && $_GET['_sort'] == 'total-test-desc') {
+                                echo 'selected';
+                            } ?>
+                            >Tổng bài làm (giảm dần)</option>
+                            <option value="total-test-asc"
+                            <?php if (isset($_GET['_sort']) && $_GET['_sort'] == 'total-test-asc') {
+                                echo 'selected';
+                            } ?>
+                            >Tổng bài làm (tăng dần)</option>
+                            <option value="total-pass-desc"
+                            <?php if (isset($_GET['_sort']) && $_GET['_sort'] == 'total-pass-desc') {
+                                echo 'selected';
+                            } ?>
+                            >Tổng bài đậu (giảm dần)</option>
+                            <option value="total-pass-asc"
+                            <?php if (isset($_GET['_sort']) && $_GET['_sort'] == 'total-pass-asc') {
+                                echo 'selected';
+                            } ?>
+                            >Tổng bài đậu (tăng dần)</option>
+                            <option value="total-fail-desc"
+                            <?php if (isset($_GET['_sort']) && $_GET['_sort'] == 'total-fail-desc') {
+                                echo 'selected';
+                            } ?>
+                            >Tổng bài rớt (giảm dần)</option>
+                            <option value="total-fail-asc"
+                            <?php if (isset($_GET['_sort']) && $_GET['_sort'] == 'total-fail-asc') {
+                                echo 'selected';
+                            } ?>
+                            >Tổng bài rớt (tăng dần)</option>
                         </select>
                         <button class="btn btn-primary" type="submit">Apply Filter</button>
-                        <a href="?layout=account" class="btn btn-danger">Cancel Filter</a>
+                        <a href="?layout=user" class="btn btn-danger">Cancel Filter</a>
                     </form>
                 </div>
                 <div class="search__group">
-                    <form role="search" class="form__search" action="?layout=account" method="get">
-                        <input type="hidden" name="layout" value="account">
+                    <form role="search" class="form__search" action="?layout=user" method="get">
+                        <input type="hidden" name="layout" value="user">
                         <?php if (isset($_GET['_sort'])) { ?>
                             <input type="hidden" name="_sort" value="<?= $_GET['_sort'] ?>">
                         <?php } ?>
@@ -136,17 +177,16 @@ if (isset($_GET['search']) && empty($_GET['_sort'])) {
                     <?php
                     $i = 0;
                     foreach ($users as $user) :
-                        $res = getTotalPassAndFail($user['id']);
                     ?>
                         <tr>
                             <td><?= ++$i ?></td>
-                            <td><?= $res['userName'] ?></td>
-                            <td><?= $res['Total Test'] ?></td>
-                            <td><?= $res['Total Pass'] ?></td>
-                            <td><?= $res['Total Failure'] ?></td>
+                            <td><?= $user['userName'] ?></td>
+                            <td><?= $user['Total Test'] ?></td>
+                            <td><?= $user['Total Pass'] ?></td>
+                            <td><?= $user['Total Failure'] ?></td>
                             <td>
                                 <button class="btn btn-cyan js-btn-detail" value="<?= $user['id'] ?>"
-                                <?php if ($res['Total Test'] == 0) { ?>
+                                <?php if ($user['Total Test'] == 0) { ?>
                                     style="
                                             pointer-events: none;
                                             color: #fff;

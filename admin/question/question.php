@@ -20,14 +20,11 @@ if (isset($_GET['search']) && empty($_GET['_sort'])) {
     $questions = getRows("SELECT * FROM questions WHERE question LIKE '%$search%' LIMIT $start, $limit");
 }
 
-if (isset($_GET['_sort']) && empty($_GET['search'])) {
+if (isset($_GET['_sort'])) {
     $sort = $_GET['_sort'];
-    if ($sort == 'hard') {
-        $totalPage = ceil(count(getRows("SELECT * FROM questions WHERE difficulty = 'hard'")) / $limit);
-        $questions = getRows("SELECT * FROM questions WHERE difficulty = 'hard' LIMIT $start, $limit");
-    } elseif ($sort == 'easy') {
-        $totalPage = ceil(count(getRows("SELECT * FROM questions WHERE difficulty = 'easy'")) / $limit);
-        $questions = getRows("SELECT * FROM questions WHERE difficulty = 'easy' LIMIT $start, $limit");
+    if ($sort == 'hard' || $sort == 'easy') {
+        $totalPage = ceil(count(getRows("SELECT * FROM questions WHERE difficulty = '$sort'")) / $limit);
+        $questions = getRows("SELECT * FROM questions WHERE difficulty = '$sort' LIMIT $start, $limit");
     } else {
         $totalPage = ceil(count(getRows("SELECT * FROM questions WHERE chuDe = '$sort'")) / $limit);
         $questions = getRows("SELECT * FROM questions WHERE chuDe = '$sort' LIMIT $start, $limit");
@@ -35,18 +32,16 @@ if (isset($_GET['_sort']) && empty($_GET['search'])) {
 }
 
 if (isset($_GET['_sort']) && isset($_GET['search'])) {
-    $sort = $_GET['_sort'];
+    $newQuestions = [];
     $search = $_GET['search'];
-    if ($sort == 'hard') {
-        $totalPage = ceil(count(getRows("SELECT * FROM questions WHERE difficulty = 'hard' AND question LIKE '%$search%'")) / $limit);
-        $questions = getRows("SELECT * FROM questions WHERE difficulty = 'hard' AND question LIKE '%$search%' LIMIT $start, $limit");
-    } elseif ($sort == 'easy') {
-        $totalPage = ceil(count(getRows("SELECT * FROM questions WHERE difficulty = 'easy' AND question LIKE '%$search%'")) / $limit);
-        $questions = getRows("SELECT * FROM questions WHERE difficulty = 'easy' AND question LIKE '%$search%' LIMIT $start, $limit");
-    } else {
-        $totalPage = ceil(count(getRows("SELECT * FROM questions WHERE chuDe = '$sort' AND question LIKE '%$search%'")) / $limit);
-        $questions = getRows("SELECT * FROM questions WHERE chuDe = '$sort' AND question LIKE '%$search%' LIMIT $start, $limit");
+    foreach ($questions as $question) {
+        $key1 = strtolower(removeAccent($question['question']));
+        $key2 = strtolower(removeAccent($search));
+        if (strpos($key1, $key2) !== false) {
+            $newQuestions[] = $question;
+        }
     }
+    $questions = $newQuestions;
 }
 
 $examNames = getRows("SELECT * FROM exam");
@@ -67,10 +62,22 @@ $examNames = getRows("SELECT * FROM exam");
                             <input type="hidden" name="search" value="<?= $_GET['search'] ?>">
                         <?php } ?>
                         <select name="_sort" id="sorted">
-                            <option value="hard">Khó nhất</option>
-                            <option value="easy">Dễ nhất</option>
+                            <option value="hard"
+                            <?php if (isset($_GET['_sort']) && $_GET['_sort'] == 'hard') {
+                                echo 'selected';
+                            } ?>
+                            >Khó nhất</option>
+                            <option value="easy"
+                            <?php if (isset($_GET['_sort']) && $_GET['_sort'] == 'easy') {
+                                echo 'selected';
+                            } ?>
+                            >Dễ nhất</option>
                             <?php foreach ($examNames as $examName) : ?>
-                                <option value="<?= $examName['examName'] ?>"><?= $examName['examName'] ?></option>
+                                <option value="<?= $examName['examName'] ?>"
+                                <?php if (isset($_GET['_sort']) && $_GET['_sort'] == $examName['examName']) {
+                                    echo 'selected';
+                                } ?>
+                                ><?= $examName['examName'] ?></option>
                             <?php endforeach; ?>
                         </select>
                         <button class="btn btn-primary" type="submit">Apply Filter</button>
