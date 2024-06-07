@@ -15,21 +15,30 @@ if (isset($_SESSION['user'])) {
 </head>
 <body>
     <div class="form__login">
-        <h2>Đăng nhập</h2>
-        <div class="input__login">
-            <input id="email" type="email" name="email" placeholder="Email..." required>
-            <label for="email">Email</label>
+        <div class="content__first">
+            <h2>Đăng nhập</h2>
+            <div class="input__login">
+                <input id="email" type="email" name="email" placeholder="Email..." required>
+                <label for="email">Email</label>
+            </div>
+            <div class="input__login">
+                <input id="password" type="password" name="password" placeholder="Mật khẩu..." required>
+                <label for="password">Mật khẩu</label>
+            </div>
+            <div class="link__forgot">
+                <a href="?client=pages&action=forgot">Quên mật khẩu?</a>
+            </div>
+            <div class="btn__submit">
+                <button type="button" class="btn">Đăng nhập</button>
+                <a href="?client=pages&action=register" class="btn link__register">Đăng ký</a>
+            </div>
         </div>
-        <div class="input__login">
-            <input id="password" type="password" name="password" placeholder="Mật khẩu..." required>
-            <label for="password">Mật khẩu</label>
-        </div>
-        <div class="link__forgot">
-            <a href="?client=pages&action=forgot">Quên mật khẩu?</a>
-        </div>
-        <div class="btn__submit">
-            <button type="button" class="btn">Đăng nhập</button>
-            <a href="?client=pages&action=register" class="link__register">Đăng ký</a>
+        <div class="content__second">
+            <p class="content">
+                <span>Chào mừng bạn đến với trang web thi thử trắc nghiệm ô tô của chúng tôi.</span>
+                <br/>
+                <span>Đăng nhập để sử dụng dịch vụ của chúng tôi</span>
+            </p>
         </div>
     </div>
 
@@ -49,6 +58,7 @@ if (isset($_SESSION['user'])) {
             }
 
             let regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+
             if (!regexEmail.test(emailValue)) {
                 alert('Email không hợp lệ');
                 return;

@@ -4,6 +4,7 @@ body {
     align-items: center;
     min-height: 100vh;
     margin: 0;
+    background-color: #6666ff;
 }
 
 /* disabled */
@@ -15,9 +16,8 @@ body {
 
 .form__login {
     display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-width: 400px;
+    max-width: 800px;
+    min-height: 340px;
     padding: 15px;
     margin: 15px;
     border: 1px solid #ccc;
@@ -28,6 +28,23 @@ body {
 .form__login h2 {
     text-align: center;
     margin-bottom: 15px;
+}
+
+.content__first {
+    margin-right: 50px;   
+    width: 75%;
+}
+
+.content__second {
+    width: 50%;
+    text-align: center;
+    font-size: 22px;
+}
+
+.content__second .content {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .input__login {
@@ -61,7 +78,7 @@ body {
 .input__login input {
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 16px;
 }
 
 .input__login input:focus ~ label,
@@ -78,6 +95,13 @@ body {
 .input__login input:focus::placeholder,
 .input__login input:valid::placeholder {
     color: transparent;
+}
+
+.link__forgot {
+    border-bottom: 1px solid #ccc;
+    text-align: right;
+    margin-bottom: 40px;
+    padding-bottom: 8px;
 }
 
 .btn__submit {

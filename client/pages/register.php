@@ -11,32 +11,42 @@
 
 <body>
     <div class="form__login">
-        <h2>Đăng ký</h2>
-        <div id="loading" style="display:none;">Please wait...</div>
-        <div class="alert" role="alert"></div>
-        <div class="input__login">
-            <input id="name" type="text" name="name" placeholder="Họ và tên..." required>
-            <label for="name">Họ và tên</label>
+        <div class="content__first">
+
+            <h2>Đăng ký</h2>
+            <div id="loading" style="display:none;">Please wait...</div>
+            <div class="alert" role="alert"></div>
+            <div class="input__login">
+                <input id="name" type="text" name="name" placeholder="Họ và tên..." required>
+                <label for="name">Họ và tên</label>
+            </div>
+            <div class="input__login">
+                <input id="email" type="email" name="email" placeholder="Email..." required>
+                <label for="email">Email</label>
+            </div>
+            <div class="input__login">
+                <input id="password" type="password" name="password" placeholder="Mật khẩu..." required>
+                <label for="password">Mật khẩu</label>
+            </div>
+            <div class="input__login">
+                <input id="confirmPassword" type="password" name="confirmPassword" placeholder="Nhập lại mật khẩu..." required>
+                <label for="confirmPassword">Nhập lại mật khẩu</label>
+            </div>
+            <div class="input__login">
+                <input id="phone" type="text" name="phone" placeholder="Số điện thoại..." required>
+                <label for="phone">Số điện thoại</label>
+            </div>
+            <div class="btn__submit">
+                <button id="registerButton" type="button" class="btn">Đăng ký</button>
+                <a href="?client=pages&action=login" class="btn link__register">Đăng nhập</a>
+            </div>
         </div>
-        <div class="input__login">
-            <input id="email" type="email" name="email" placeholder="Email..." required>
-            <label for="email">Email</label>
-        </div>
-        <div class="input__login">
-            <input id="password" type="password" name="password" placeholder="Mật khẩu..." required>
-            <label for="password">Mật khẩu</label>
-        </div>
-        <div class="input__login">
-            <input id="confirmPassword" type="password" name="confirmPassword" placeholder="Nhập lại mật khẩu..." required>
-            <label for="confirmPassword">Nhập lại mật khẩu</label>
-        </div>
-        <div class="input__login">
-            <input id="phone" type="text" name="phone" placeholder="Số điện thoại..." required>
-            <label for="phone">Số điện thoại</label>
-        </div>
-        <div class="btn__submit">
-            <button id="registerButton" type="button" class="btn">Đăng ký</button>
-            <a href="?client=pages&action=login" class="link__register">Đăng nhập</a>
+        <div class="content__second">
+            <p class="content">
+                <span>Chào mừng bạn đến với trang web thi thử trắc nghiệm ô tô của chúng tôi.</span>
+                <br/>
+                <span>Đăng nhập để sử dụng dịch vụ của chúng tôi</span>
+            </p>
         </div>
     </div>
 

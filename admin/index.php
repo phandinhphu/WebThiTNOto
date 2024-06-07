@@ -116,35 +116,35 @@ require_once '../includes/session.php';
                     <ul id="sidebarnav">
                         <!-- User Profile-->
                         <li class="sidebar-item pt-2">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../admin/index.php?layout=dashboard" aria-expanded="false">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../admin/?layout=dashboard" aria-expanded="false">
                                 <i class="far fa-clock" aria-hidden="true"></i>
                                 <span class="hide-menu">Dashboard</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item pt-2">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../admin/index.php?layout=exam" aria-expanded="false">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../admin/?layout=exam" aria-expanded="false">
                                 <i class=" fas fa-bookmark" aria-hidden="true"></i>
                                 <span class="hide-menu">Exam</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item pt-2">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../admin/index.php?layout=question" aria-expanded="false">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../admin/?layout=question" aria-expanded="false">
                                 <i class=" fas fa-question" aria-hidden="true"></i>
                                 <span class="hide-menu">Question</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item pt-2">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../admin/index.php?layout=account" aria-expanded="false">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../admin/?layout=account" aria-expanded="false">
                                 <i class="fa fa-user" aria-hidden="true"></i>
                                 <span class="hide-menu">Account</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item pt-2">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../admin/index.php?layout=user" aria-expanded="false">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../admin/?layout=user" aria-expanded="false">
                                 <i class="fa fa-user" aria-hidden="true"></i>
                                 <span class="hide-menu">User</span>
                             </a>

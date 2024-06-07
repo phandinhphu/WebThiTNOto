@@ -35,7 +35,7 @@ async function handleShowInfo(id) {
             html += `<tr>
                         <td>${index + 1}</td>
                         <td>${item.examName}</td>
-                        <td>${item.soCauDung + item.soCauSai + item.soCauTrong}</td>
+                        <td>${item.soCauHoi}</td>
                         <td>${item.soCauDung}</td>
                         <td>${item.soCauSai}</td>
                         <td>${item.timeComplete}</td>
@@ -43,7 +43,7 @@ async function handleShowInfo(id) {
                         <td>${item.ketQua}</td>
                         <td>
                             <button class="btn btn-primary js-view-mngex" value="${item.userId}" test-date="${item.testDate}">Xem</button>
-                            <button class="btn btn-cyan js-update-mngex" num-questions="${item.soCauDung + item.soCauSai + item.soCauTrong}" value="${item.userId}" test-date="${item.testDate}">Sửa</button>
+                            <button class="btn btn-cyan js-update-mngex" num-questions="${item.soCauHoi}" value="${item.userId}" test-date="${item.testDate}">Sửa</button>
                             <button class="btn btn-danger js-delete-mngex" value="${item.userId}" test-date="${item.testDate}">Xóa</button>
                         </td>
                     </tr>`;
@@ -109,7 +109,6 @@ $(document).on('click', '.js-update-mngex', function () {
     let id = $(this).attr('value');
     let testDate = $(this).attr('test-date');
     let numQuestions = $(this).attr('num-questions');
-    console.log(id, testDate, numQuestions);
     $('#modalUpdateScore').modal('show');
     
     $('#numoftrue').attr('max', numQuestions);
@@ -125,6 +124,16 @@ $(document).on('click', '.js-update-mngex', function () {
         } else {
             document.getElementById('numoffalse').value = numQuestions - this.value;
             document.getElementById('score').value = (100 / numQuestions) * this.value;
+        }
+    });
+
+    document.getElementById('numoffalse').addEventListener('input', function() {
+        if (this.value == '') {
+            document.getElementById('numoftrue').value = '';
+            document.getElementById('score').value = '';
+        } else {
+            document.getElementById('numoftrue').value = numQuestions - this.value;
+            document.getElementById('score').value = (100 / numQuestions) * document.getElementById('numoftrue').value;
         }
     });
 });
