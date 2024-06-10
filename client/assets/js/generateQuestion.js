@@ -1,4 +1,5 @@
 var countDown;
+var totalQs = 0;
 
 document.querySelectorAll(".btn.btn-start").forEach((btn) => {
 	btn.addEventListener("click", async () => {
@@ -9,6 +10,8 @@ document.querySelectorAll(".btn.btn-start").forEach((btn) => {
 				examName
 		);
 		const { data: questions, timeLimit, totalQuestion } = await response.json();
+
+		totalQs = totalQuestion;
 
 		const col = document.querySelector(".col");
 		col.classList.remove("l-8");
@@ -224,7 +227,8 @@ function generateListBtnId(questions) {
 }
 
 document.getElementById('btn-view-result').addEventListener('click', async () => {
-	const response = await fetch('http://localhost/WebThiTN-Oto/api/question/getLatestQuestion.php');
+	console.log(totalQs);
+	const response = await fetch('http://localhost/WebThiTN-Oto/api/question/getLatestQuestion.php?totalQuestion=' + totalQs);
 	const { data: questions } = await response.json();
 
 	const listAnswerDOM = document.getElementById('list-answer');

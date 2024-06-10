@@ -1,12 +1,18 @@
 /**
  * Path: admin/assets/js/exam.js
- * Description: This file is used to handle the event add of the exam page
+ * Description: This file is used to handle the event add of the exam
 */
-$(document).ready(function () {
+function handleAddExam() {
 	$("#js-save").click(function () {
 		var examName = $("#exam-name").val();
 		var examTime = $("#exam-time").val();
 		var examStatus = $("#exam-status").val();
+
+		if (examName == "" || examTime == "") {
+			alert("Please fill in all fields");
+			return;
+		}
+
 		$.ajax({
 			url: "exam/add-exam.php",
 			type: "POST",
@@ -26,25 +32,23 @@ $(document).ready(function () {
 			},
 		});
 	});
-});
+}
 
 /**
  * Path: admin/assets/js/exam.js
- * Description: This file is used to handle the event edit of the exam page
+ * Description: This file is used to handle the event edit of the exam
  */
-$(document).ready(function () {
-	$("#js-edit-close").click(() => {
-		$("#editExamModal").modal("hide");
-	});
-
-	$("#edit-icon-close").click(() => {
-		$("#editExamModal").modal("hide");
-	});
-
+function handleEditExam() {
 	$("#js-edit-save").click(() => {
 		var examName = $("#edit-exam-name").val();
 		var examTime = $("#edit-exam-time").val();
 		var examStatus = $("#edit-exam-status").val();
+
+		if (examName == "" || examTime == "") {
+			alert("Please fill in all fields");
+			return;
+		}
+
 		$.ajax({
 			url: "exam/edit-exam.php",
 			type: "POST",
@@ -71,7 +75,7 @@ $(document).ready(function () {
 			var examName = item.getAttribute("value");
 			$.ajax({
 				url: "http://localhost/WebThiTN-Oto/api/exam/getExamByName.php",
-				type: "POST",
+				type: "GET",
 				data: {
 					examName: examName,
 				},
@@ -86,13 +90,13 @@ $(document).ready(function () {
 			});
 		});
 	});
-});
+}
 
 /**
  * Path: admin/assets/js/exam.js
- * Description: This file is used to handle the event delete of the exam page
+ * Description: This file is used to handle the event delete of the exam
  */
-$(document).ready(() => {
+function handleDeleteExam() {
 	const deleteBtns = document.querySelectorAll(".js-delete-exam");
 	deleteBtns.forEach((item) => {
 		item.addEventListener("click", () => {
@@ -121,11 +125,11 @@ $(document).ready(() => {
 			});
 		});
 	});
-});
+}
 
 /**
  * Path: admin/assets/js/exam.js
- * Description: This file is used to handle the event hide & show of the exam page
+ * Description: This file is used to handle the event hide & show of the exam
  */
 $(document).ready(function () {
 	$("#add-exam").click(function () {
@@ -137,4 +141,16 @@ $(document).ready(function () {
 	$("#icon-close").click(function () {
 		$("#addExamModal").modal("hide");
 	});
+
+	$("#js-edit-close").click(() => {
+		$("#editExamModal").modal("hide");
+	});
+
+	$("#edit-icon-close").click(() => {
+		$("#editExamModal").modal("hide");
+	});
+
+	handleAddExam();
+	handleEditExam();
+	handleDeleteExam();
 });

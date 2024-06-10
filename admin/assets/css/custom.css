@@ -36,6 +36,11 @@
 	transition: all 0.3s ease;
 }
 
+#search-question:focus,
+#search-question:valid {
+	width: 280px;
+}
+
 /* Pagination */
 .pagination {
 	display: flex;

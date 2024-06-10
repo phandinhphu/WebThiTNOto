@@ -1,6 +1,8 @@
 const btnSave = document.querySelector('.js-save-rpassword');
 
 btnSave.addEventListener('click', () => {
+    document.querySelector('.alert').innerHTML = '';
+
     let old_password = document.getElementById('old-password').value;
     let new_password = document.getElementById('password').value;
     let confirm_password = document.getElementById('rpassword').value;

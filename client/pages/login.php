@@ -17,27 +17,33 @@ if (isset($_SESSION['user'])) {
     <div class="form__login">
         <div class="content__first">
             <h2>Đăng nhập</h2>
+            <div class="alert"></div>
             <div class="input__login">
                 <input id="email" type="email" name="email" placeholder="Email..." required>
                 <label for="email">Email</label>
             </div>
+            <div class="alert-email"></div>
             <div class="input__login">
                 <input id="password" type="password" name="password" placeholder="Mật khẩu..." required>
                 <label for="password">Mật khẩu</label>
             </div>
-            <div class="link__forgot">
-                <a href="?client=pages&action=forgot">Quên mật khẩu?</a>
-            </div>
+            <div class="alert-password"></div>
+            <div class="link__forgot"></div>
             <div class="btn__submit">
                 <button type="button" class="btn">Đăng nhập</button>
-                <a href="?client=pages&action=register" class="btn link__register">Đăng ký</a>
+                <a href="?client=pages&action=forgot" class="btn link__register">Quên mật khẩu?</a>
             </div>
         </div>
         <div class="content__second">
             <p class="content">
                 <span>Chào mừng bạn đến với trang web thi thử trắc nghiệm ô tô của chúng tôi.</span>
                 <br/>
-                <span>Đăng nhập để sử dụng dịch vụ của chúng tôi</span>
+                <span>Đăng nhập để sử dụng dịch vụ của chúng tôi.</span>
+                <br/>
+                <span>
+                    Bạn chưa có tài khoản?
+                    <a href="?client=pages&action=register" class="btn link__register">Đăng ký</a>
+                </span>
             </p>
         </div>
     </div>
@@ -49,18 +55,32 @@ if (isset($_SESSION['user'])) {
         const password = document.getElementById('password');
 
         btnSubmit.addEventListener('click', () => {
+            $('.alert').html('');
+            $('.alert-email').html('');
+            $('.alert-password').html('');
+
             let emailValue = email.value;
             let passwordValue = password.value;
 
-            if (emailValue === '' || passwordValue === '') {
-                alert('Vui lòng nhập đầy đủ thông tin');
+            if (emailValue === '') {
+                $('.alert-email').html(`<p class="text-danger">Vui lòng nhập email!!!</p>`);
+                return;
+            }
+
+            if (passwordValue === '') {
+                $('.alert-password').html(`<p class="text-danger">Vui lòng nhập mật khẩu!!!</p>`);
                 return;
             }
 
             let regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
 
             if (!regexEmail.test(emailValue)) {
-                alert('Email không hợp lệ');
+                $('.alert-email').html(`<p class="text-danger">Email không hợp lệ!!!</p>`);
+                return;
+            }
+
+            if (passwordValue.length < 6) {
+                $('.alert-password').html(`<p class="text-danger">Mật khẩu phải lớn hơn 6 ký tự!!!</p>`);
                 return;
             }
 
@@ -76,7 +96,7 @@ if (isset($_SESSION['user'])) {
                         alert(res.msg);
                         window.location.href = '?module=pages&action=trangchu';
                     } else {
-                        alert(res.msg);
+                        $('.alert').html(`<div class="alert alert-danger" role="alert">${res.msg}!!!</div>`);
                         email.value = '';
                         password.value = '';
                     }

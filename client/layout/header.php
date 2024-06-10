@@ -4,7 +4,7 @@ $examsMenu = getRows('SELECT * FROM exam WHERE status = 1');
 <header>
     <div class="header">
         <div class="header__first">
-            <a href="index.php">
+            <a href="?module=pages&action=trangchu">
                 <h1>Thi Lái Xe Ô tô</h1>
             </a>
             <div class="header__menu">

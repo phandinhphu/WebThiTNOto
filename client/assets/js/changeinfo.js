@@ -1,6 +1,8 @@
 const btnSaveInfo = document.querySelector('.js-save-info');
 
 btnSaveInfo.addEventListener('click', () => {
+    document.querySelector('.alert').innerHTML = '';
+
     let email = document.getElementById('email').value;
     let phone = document.getElementById('phone').value;
 

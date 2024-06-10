@@ -12,13 +12,17 @@ $(document).ready(() => {
 	$("#question-icon-close").click(function () {
 		$("#addQuestionModal").modal("hide");
 	});
+
+	handleAddQuestion();
+	handleEditQuestion();
+	handleDeleteQuestion();
 });
 
 /**
  * Path: admin/assets/js/question.js
  * Description: add question modal
  */
-$(document).ready(() => {
+function handleAddQuestion() {
 	$("#js-question-save").click(() => {
 		let question = $("#question-content").val();
 		let questionTopic = $("#question-topic").val();
@@ -28,6 +32,12 @@ $(document).ready(() => {
 		let answerD = $("#answer-d").val();
 		let answerCorrect = $("#correct-answer").val();
 		let questionDiff = $("#difficulty").val();
+
+		if (question == "" || questionTopic == "" || answerA == "" || answerB == "" || answerC == "" || answerD == "" || answerCorrect == "" || questionDiff == "") {
+			alert("Please fill in all fields");
+			return;
+		}
+
 		let data = {
 			question: question,
 			questionTopic: questionTopic,
@@ -53,13 +63,13 @@ $(document).ready(() => {
 			},
 		});
 	});
-});
+}
 
 /**
  * Path: admin/assets/js/question.js
  * Description: edit question
  */
-$(document).ready(() => {
+function handleEditQuestion() {
 	const btnsEdit = document.querySelectorAll(".js-edit-question");
     var idQuestion;
 	btnsEdit.forEach((item) => {
@@ -104,6 +114,12 @@ $(document).ready(() => {
         let answerD = $("#edit-answer-d").val();
         let answerCorrect = $("#edit-correct-answer").val();
         let questionDiff = $("#edit-difficulty").val();
+
+		if (question == "" || questionTopic == "" || answerA == "" || answerB == "" || answerC == "" || answerD == "" || answerCorrect == "" || questionDiff == "") {
+			alert("Please fill in all fields");
+			return;
+		}
+
         let data = {
             id: id,
             question: question,
@@ -138,13 +154,13 @@ $(document).ready(() => {
 	$("#edit-question-icon-close").click(() => {
 		$("#editQuestionModal").modal("hide");
 	});
-});
+}
 
 /**
  * Path: admin/assets/js/question.js
  * Description: delete question
  */
-$(document).ready(() => {
+function handleDeleteQuestion() {
     const btnsDelete = document.querySelectorAll(".js-delete-question");
     btnsDelete.forEach((item) => {
         item.addEventListener('click', () => {
@@ -171,4 +187,4 @@ $(document).ready(() => {
             });
         });
     });
-});
+}

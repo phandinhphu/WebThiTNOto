@@ -12,7 +12,6 @@
 <body>
     <div class="form__login">
         <div class="content__first">
-
             <h2>Đăng ký</h2>
             <div id="loading" style="display:none;">Please wait...</div>
             <div class="alert" role="alert"></div>
@@ -45,7 +44,7 @@
             <p class="content">
                 <span>Chào mừng bạn đến với trang web thi thử trắc nghiệm ô tô của chúng tôi.</span>
                 <br/>
-                <span>Đăng nhập để sử dụng dịch vụ của chúng tôi</span>
+                <span>Đăng ký để sử dụng dịch vụ của chúng tôi</span>
             </p>
         </div>
     </div>

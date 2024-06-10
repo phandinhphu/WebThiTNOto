@@ -7,20 +7,12 @@ body {
     background-color: #6666ff;
 }
 
-/* disabled */
-.disabled {
-    pointer-events: none; /* Ngăn chặn sự kiện chuột */
-    color: gray; /* Thay đổi màu chữ */
-    text-decoration: none; /* Loại bỏ gạch chân */
-}
-
 .form__login {
     display: flex;
     max-width: 800px;
-    min-height: 340px;
-    padding: 15px;
+    min-height: 360px;
     margin: 15px;
-    border: 1px solid #ccc;
+    border: 5px solid #cc66ff;
     border-radius: 5px;
     background-color: #fff;
 }
@@ -32,19 +24,38 @@ body {
 
 .content__first {
     margin-right: 50px;   
-    width: 75%;
+    width: 50%;
+    padding: 15px;
 }
 
 .content__second {
     width: 50%;
-    text-align: center;
+    text-align: left;
     font-size: 22px;
+    padding: 15px;
+    border-left: 1px solid #ccc;
+    padding-left: 5px;
+    background-color: #6666ff;
 }
 
 .content__second .content {
     position: relative;
     top: 50%;
     transform: translateY(-50%);
+    font-weight: bold;
+    color: #fff;
+}
+
+.content .btn {
+    border-radius: 22px;
+    border: none;
+    background-color: #9900ff;
+    color: #fff;
+    cursor: pointer;
+}
+
+.content .btn:hover {
+    background-color: #6600cc;
 }
 
 .input__login {
@@ -100,7 +111,7 @@ body {
 .link__forgot {
     border-bottom: 1px solid #ccc;
     text-align: right;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
     padding-bottom: 8px;
 }
 
@@ -108,12 +119,12 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
+    }
+    
 .btn__submit .btn {
+    border-radius: 22px;
     padding: 10px;
     border: none;
-    border-radius: 5px;
     background-color: #007bff;
     color: #fff;
     cursor: pointer;
@@ -142,4 +153,12 @@ body {
 
 .link__forgot {
     text-align: right;
+}
+
+/* disabled */
+.disabled {
+    pointer-events: none; /* Ngăn chặn sự kiện chuột */
+    color: gray !important; /* Thay đổi màu chữ */
+    text-decoration: none; /* Loại bỏ gạch chân */
+    background-color: #f1f1f1 !important; /* Thay đổi màu nền */
 }
