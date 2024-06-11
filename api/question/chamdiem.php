@@ -59,7 +59,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $res = [
         'score' => $score,
         'msg' => $msg,
-        'timeComplete' => $timeComplete
+        'timeComplete' => $timeComplete,
+        'testDate' => $dataAnwser
     ];
 
     header('Content-Type: application/json');

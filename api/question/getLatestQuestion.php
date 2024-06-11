@@ -9,11 +9,12 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     ]);
     exit;
 }
-$total = $_GET['totalQuestion'];
+$examName = $_GET['exam_name'];
+$testDate = $_GET['test_date'];
 $question = getRows('SELECT history.id AS historyId, history.answerUser, history.result, questions.* FROM history, questions
                     WHERE history.questionId = questions.id
-                    ORDER BY history.id DESC
-                    LIMIT ' . $total);
+                    AND history.dateAnswer = :testDate AND questions.chuDe = :examName',
+                    ['testDate' => $testDate, 'examName' => $examName]);
 
 $response = [
     'data' => $question,

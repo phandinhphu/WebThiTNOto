@@ -1,5 +1,6 @@
 var countDown;
-var totalQs = 0;
+var exam_name;
+var test_date;
 
 document.querySelectorAll(".btn.btn-start").forEach((btn) => {
 	btn.addEventListener("click", async () => {
@@ -11,7 +12,7 @@ document.querySelectorAll(".btn.btn-start").forEach((btn) => {
 		);
 		const { data: questions, timeLimit, totalQuestion } = await response.json();
 
-		totalQs = totalQuestion;
+		exam_name = examName;
 
 		const col = document.querySelector(".col");
 		col.classList.remove("l-8");
@@ -189,7 +190,9 @@ async function submitAnswer(data, timeout = 1) {
 			body: JSON.stringify(data),
 		}
 	);
-	const { score, msg, timeComplete } = await response.json();
+	const { score, msg, timeComplete, testDate } = await response.json();
+
+	test_date = testDate;
 
 	$("#modalResult").modal("show");
 
@@ -227,8 +230,7 @@ function generateListBtnId(questions) {
 }
 
 document.getElementById('btn-view-result').addEventListener('click', async () => {
-	console.log(totalQs);
-	const response = await fetch('http://localhost/WebThiTN-Oto/api/question/getLatestQuestion.php?totalQuestion=' + totalQs);
+	const response = await fetch('http://localhost/WebThiTN-Oto/api/question/getLatestQuestion.php?exam_name=' + exam_name + '&test_date=' + test_date);
 	const { data: questions } = await response.json();
 
 	const listAnswerDOM = document.getElementById('list-answer');
