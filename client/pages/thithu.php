@@ -39,6 +39,13 @@ if ($_SESSION['user']['status'] == 0) {
             </h2>
             <p id="time-left">Thời gian còn lại: </p>
             <p id="total-question"></p>
+            <div class="quiz__progress">
+                <svg>
+                    <circle r="50"></circle>
+                    <circle id="progress" r="50"></circle>
+                </svg>
+                <div id="percentage">0.0%</div>
+            </div>
             <div id="list-id">
                 <div class="grid wide">
                     <div class="row"></div>

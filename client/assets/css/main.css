@@ -510,3 +510,38 @@ header {
 	text-decoration: none;
 	color: #000;
 }
+
+.quiz__progress {
+	width: 200px;
+	position: relative;
+}
+
+.quiz__progress svg {
+	position: absolute;
+    top: -68px;
+    left: 500px;
+    transform: translate(-50%, -50%);
+}
+
+.quiz__progress svg circle {
+	transform: translate(50%, 50%);
+	fill: none;
+	stroke: #ddd;
+	stroke-width: 10px;
+}
+
+#progress {
+	stroke: #06e286;
+    stroke-width: 10px;
+    stroke-dasharray: 314; /* 2 * Math.PI * r where r is 50 */
+    stroke-dashoffset: 314;
+    transition: stroke-dashoffset 1s linear;
+}
+
+#percentage {
+	position: absolute;
+    font-size: 24px;
+    font-weight: bold;
+    top: -84px;
+    left: 478px;
+}

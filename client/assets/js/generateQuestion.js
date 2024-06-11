@@ -71,11 +71,28 @@ document.querySelectorAll(".btn.btn-start").forEach((btn) => {
 
 		generateListBtnId(questions);
 
+		let answerQuestions = 0;
 		document.querySelectorAll("input[type=radio]").forEach((radio) => {
 			radio.addEventListener("change", () => {
 				document.querySelectorAll(".list-id-item").forEach((id) => {
-					if (radio.name === id.id) {
+					if (radio.name === id.id && id.style.backgroundColor !== "green") {
+						answerQuestions++;
 						id.style.backgroundColor = "green";
+					}
+
+					let progressCircle = document.getElementById("progress");
+					let percentage = document.getElementById("percentage");
+
+					let progressPercent = (answerQuestions / totalQuestion) * 100;
+					let circleCircumference = 2 * Math.PI * 50;
+					let offset = circleCircumference - (progressPercent / 100) * circleCircumference;
+
+					progressCircle.style.strokeDashoffset = offset;
+
+					if (Number.isInteger(progressPercent)) {
+						percentage.textContent = `${progressPercent}%`;
+					} else {
+						percentage.textContent = `${progressPercent.toFixed(1)}%`;
 					}
 				});
 			});
