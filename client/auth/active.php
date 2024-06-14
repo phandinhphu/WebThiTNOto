@@ -1,5 +1,8 @@
 <?php
-
+echo '
+    <a href='.BASE_URL.'?module=pages&action=login>Đăng nhập</a>
+';
+die();
 if (empty($_GET['token'])) {
     echo 'Không tìm thấy Token kích hoạt';
 } else {
@@ -18,9 +21,9 @@ if (empty($_GET['token'])) {
                 session_destroy();
             }
             echo 'Kích hoạt tài khoản thành công </br>';
-            echo `
-                <a href="http://localhost/WebThiTN-Oto/?module=pages&action=login">Đăng nhập</a>
-            `;
+            echo '
+                <a href='.BASE_URL.'?module=pages&action=login>Đăng nhập</a>
+            ';
             exit();
         } catch (Exception $e) {
             echo 'Đã xảy ra lỗi';

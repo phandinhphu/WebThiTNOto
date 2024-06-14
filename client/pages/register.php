@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng ký</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="client/assets/css/login.css">
+    <link rel="stylesheet" href="<?= BASE_URL.'client/assets/css/login.css' ?>">
 </head>
 
 <body>
@@ -19,25 +19,30 @@
                 <input id="name" type="text" name="name" placeholder="Họ và tên..." required>
                 <label for="name">Họ và tên</label>
             </div>
+            <div class="alert-name"></div>
             <div class="input__login">
                 <input id="email" type="email" name="email" placeholder="Email..." required>
                 <label for="email">Email</label>
             </div>
+            <div class="alert-email"></div>
             <div class="input__login">
                 <input id="password" type="password" name="password" placeholder="Mật khẩu..." required>
                 <label for="password">Mật khẩu</label>
             </div>
+            <div class="alert-password"></div>
             <div class="input__login">
                 <input id="confirmPassword" type="password" name="confirmPassword" placeholder="Nhập lại mật khẩu..." required>
                 <label for="confirmPassword">Nhập lại mật khẩu</label>
             </div>
+            <div class="alert-confirm-password"></div>
             <div class="input__login">
                 <input id="phone" type="text" name="phone" placeholder="Số điện thoại..." required>
                 <label for="phone">Số điện thoại</label>
             </div>
+            <div class="alert-phone"></div>
             <div class="btn__submit">
                 <button id="registerButton" type="button" class="btn">Đăng ký</button>
-                <a href="?client=pages&action=login" class="btn link__register">Đăng nhập</a>
+                <a href="?module=pages&action=login" class="btn link__register">Đăng nhập</a>
             </div>
         </div>
         <div class="content__second">
@@ -59,43 +64,65 @@
         const phone = document.getElementById('phone');
 
         btnSubmit.addEventListener('click', () => {
+            document.querySelector('.alert').innerHTML = '';
+            document.querySelector('.alert-name').innerHTML = '';
+            document.querySelector('.alert-email').innerHTML = '';
+            document.querySelector('.alert-password').innerHTML = '';
+            document.querySelector('.alert-confirm-password').innerHTML = '';
+            document.querySelector('.alert-phone').innerHTML = '';
+
             let nameValue = name.value;
             let emailValue = email.value;
             let passwordValue = password.value;
             let confirmPasswordValue = confirmPassword.value;
             let phoneValue = phone.value;
 
-            if (passwordValue.length < 6) {
-                let html = `<div class="alert alert-danger" role="alert">
-                    Mật khẩu phải lớn hơn 6 ký tự
-                </div>`;
-                $('#password').after(html);
+            if (nameValue === '') {
+                document.querySelector('.alert-name')
+                .innerHTML = `<p class="text-danger">Vui lòng nhập họ và tên!!!</p>`;
                 return;
             }
 
-            if (confirmPasswordValue.length < 6) {
-                let html = `<div class="alert alert-danger" role="alert">
-                    Mật khẩu phải lớn hơn 6 ký tự
-                </div>`;
-                $('#confirmPassword').after(html);
+            if (emailValue === '') {
+                document.querySelector('.alert-email')
+                .innerHTML = `<p class="text-danger">Vui lòng nhập email!!!</p>`;
+                return;
+            }
+
+            if (passwordValue === '') {
+                document.querySelector('.alert-password')
+                .innerHTML = `<p class="text-danger">Vui lòng nhập mật khẩu!!!</p>`;
+                return;
+            }
+
+            if (confirmPasswordValue === '') {
+                document.querySelector('.alert-confirm-password')
+                .innerHTML = `<p class="text-danger">Vui lòng nhập lại mật khẩu!!!</p>`;
+                return;
+            }
+
+            if (phoneValue === '') {
+                document.querySelector('.alert-phone')
+                .innerHTML = `<p class="text-danger">Vui lòng nhập số điện thoại!!!</p>`;
+                return;
+            }
+
+            if (passwordValue.length < 6) {
+                document.querySelector('.alert-password')
+                .innerHTML = `<p class="text-danger">Mật khẩu phải lớn hơn 6 ký tự!!!</p>`;
                 return;
             }
 
             if (passwordValue !== confirmPasswordValue) {
-                let html = `<div class="alert alert-danger" role="alert">
-                    Mật khẩu không khớp
-                </div>`;
-                $('#password').after(html);
-                $('#confirmPassword').after(html);
+                document.querySelector('.alert-confirm-password')
+                .innerHTML = `<p class="text-danger">Mật khẩu không khớp!!!</p>`;
                 return;
             }
 
             let regex = /^(0)[0-9]{9}$/;
             if (!regex.test(phoneValue)) {
-                let html = `<div class="alert alert-danger" role="alert">
-                    Số điện thoại không hợp lệ
-                </div>`;
-                $('#phone').after(html);
+                document.querySelector('.alert-phone')
+                .innerHTML = `<p class="text-danger">Số điện thoại không hợp lệ!!!</p>`;
                 return;
             }
             

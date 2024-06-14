@@ -31,7 +31,7 @@ if (isset($_SESSION['user'])) {
             <div class="link__forgot"></div>
             <div class="btn__submit">
                 <button type="button" class="btn">Đăng nhập</button>
-                <a href="?client=pages&action=forgot" class="btn link__register">Quên mật khẩu?</a>
+                <a href="?module=pages&action=forgot" class="btn link__register">Quên mật khẩu?</a>
             </div>
         </div>
         <div class="content__second">
@@ -42,7 +42,7 @@ if (isset($_SESSION['user'])) {
                 <br/>
                 <span>
                     Bạn chưa có tài khoản?
-                    <a href="?client=pages&action=register" class="btn link__register">Đăng ký</a>
+                    <a href="?module=pages&action=register" class="btn link__register">Đăng ký</a>
                 </span>
             </p>
         </div>
@@ -85,7 +85,7 @@ if (isset($_SESSION['user'])) {
             }
 
             $.ajax({
-                url: 'client/auth/login.php',
+                url: './client/auth/login.php',
                 type: 'POST',
                 data: {
                     email: emailValue,
@@ -94,6 +94,7 @@ if (isset($_SESSION['user'])) {
                 success: res => {
                     if (res.status === 200) {
                         alert(res.msg);
+                        localStorage.setItem('user', res.userId);
                         window.location.href = '?module=pages&action=trangchu';
                     } else {
                         $('.alert').html(`<div class="alert alert-danger" role="alert">${res.msg}!!!</div>`);

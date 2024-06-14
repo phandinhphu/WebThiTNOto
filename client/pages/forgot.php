@@ -19,7 +19,7 @@
             </div>
             <div class="btn__submit">
                 <button id="forgot-btn" class="btn" type="submit">Gửi email</button>
-                <a href="?client=pages&action=login" class="btn link__register">Đăng nhập</a>
+                <a href="?module=pages&action=login" class="btn link__register">Đăng nhập</a>
             </div>
         </div>
         <div class="content__second">

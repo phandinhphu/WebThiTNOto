@@ -538,10 +538,12 @@ header {
     transition: stroke-dashoffset 1s linear;
 }
 
-#percentage {
+.progress__text {
 	position: absolute;
     font-size: 24px;
     font-weight: bold;
+    width: 100px;
     top: -84px;
-    left: 478px;
+    left: 450px;
+    text-align: center;
 }

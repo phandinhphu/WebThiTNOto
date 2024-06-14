@@ -1,9 +1,26 @@
 var countDown;
 var exam_name;
 var test_date;
+var submited = true;
+
+function confirmExit(event) {
+	if (!submited) {
+		// Hủy sự kiện mặc định (ví dụ: thông báo mặc định của trình duyệt)
+		event.preventDefault();
+		// Chuẩn bị thông báo nhắc nhở
+		var confirmationMessage = 'Bạn có chắc muốn rời khỏi trang này?';
+	
+		// (Các trình duyệt có thể cần thiết hiện thông báo này, chẳng hạn Firefox)
+		event.returnValue = confirmationMessage;
+		return confirmationMessage;
+	}
+}
+
+window.addEventListener('beforeunload', confirmExit);
 
 document.querySelectorAll(".btn.btn-start").forEach((btn) => {
 	btn.addEventListener("click", async () => {
+		submited = false;
 		const examName = btn.getAttribute("exam-name");
 
 		const response = await fetch(
@@ -195,6 +212,7 @@ async function submitAnswer(data, timeout = 1) {
 		}
 	}
 
+	submited = true;
 	clearInterval(countDown);
 
 	const response = await fetch(
@@ -247,7 +265,7 @@ function generateListBtnId(questions) {
 }
 
 document.getElementById('btn-view-result').addEventListener('click', async () => {
-	const response = await fetch('http://localhost/WebThiTN-Oto/api/question/getLatestQuestion.php?exam_name=' + exam_name + '&test_date=' + test_date);
+	const response = await fetch('http://localhost/WebThiTN-Oto/api/question/getLatestQuestion.php?test_date=' + test_date + '&userId=' + localStorage.getItem('user'));
 	const { data: questions } = await response.json();
 
 	const listAnswerDOM = document.getElementById('list-answer');

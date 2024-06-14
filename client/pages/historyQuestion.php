@@ -42,8 +42,9 @@ if (isset($_GET['examName']) && empty($_GET['dateAnswer'])) {
     <title>Lịch sử</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="client/assets/css/grid.css">
-    <link rel="stylesheet" href="client/assets/css/main.css">
+    <link rel="stylesheet" href="<?= BASE_URL.'client/assets/css/grid.css' ?>">
+    <link rel="stylesheet" href="<?= BASE_URL.'client/assets/css/main.css' ?>">
+    <script src="<?= BASE_URL.'client/assets/js/logout.js' ?>"></script>
 </head>
 
 <body>

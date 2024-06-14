@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once '../../config.php';
 require_once '../../db/database.php';
 require_once '../../includes/phpmailer/Exception.php';
 require_once '../../includes/phpmailer/PHPMailer.php';
@@ -38,7 +39,7 @@ if (isset($_GET['token'])) {
 
     if ($rs) {
         $forgotToken = md5($email).time();
-        $sendMail = sendMail($email, 'Quên mật khẩu', 'Vui lòng click vào link sau để đổi mật khẩu: <a href="http://localhost/WebThiTN-Oto/client/auth/forgotpassword.php/?token=' . $forgotToken . '">Đổi mật khẩu</a>');
+        $sendMail = sendMail($email, 'Quên mật khẩu', 'Vui lòng click vào link sau để đổi mật khẩu: <a href="'.BASE_URL.'forgotpassword.php/?token=' . $forgotToken . '">Đổi mật khẩu</a>');
         
         if ($sendMail) {
             try {
