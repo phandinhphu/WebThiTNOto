@@ -54,22 +54,22 @@ document.querySelectorAll(".btn.btn-start").forEach((btn) => {
                         <div class="radio">
                             <label><input type="radio" value="A" name="group-${
 								question.id
-							}">A. ${question.optionA}</label>
+							}" style="margin-right: 8px;">A. ${question.optionA}</label>
                         </div>
                         <div class="radio">
                             <label><input type="radio" value="B" name="group-${
 								question.id
-							}">B. ${question.optionB}</label>
+							}" style="margin-right: 8px;">B. ${question.optionB}</label>
                         </div>
                         <div class="radio">
                             <label><input type="radio" value="C" name="group-${
 								question.id
-							}">C. ${question.optionC}</label>
+							}" style="margin-right: 8px;">C. ${question.optionC}</label>
                         </div>
                         <div class="radio">
                             <label><input type="radio" value="D" name="group-${
 								question.id
-							}">D. ${question.optionD}</label>
+							}" style="margin-right: 8px;">D. ${question.optionD}</label>
                         </div>
                     </div>
                 </div>
@@ -130,28 +130,29 @@ document.querySelectorAll(".btn.btn-start").forEach((btn) => {
 			document.getElementById("time-left").textContent =
 				"Thời gian còn lại: " + formatTime;
 
-			if (timeLeft < 0) {
-				clearInterval(countDown);
-				alert("Hết giờ làm bài");
-				const groupByName = {};
-				const userAnswers = {};
+            let timeout;
+            if (timeLeft < 0) {
+                clearInterval(countDown);
+                alert("Hết giờ làm bài");
+                const groupByName = {};
+                const userAnswers = {};
 
-				document
-					.querySelectorAll("input[type=radio]")
-					.forEach((radio) => {
-						if (!groupByName[radio.name]) {
-							groupByName[radio.name] = [];
-						}
-						groupByName[radio.name].push(radio);
+                document
+                    .querySelectorAll("input[type=radio]")
+                    .forEach((radio) => {
+                        if (!groupByName[radio.name]) {
+                            groupByName[radio.name] = [];
+                        }
+                        groupByName[radio.name].push(radio);
 
-						if (radio.checked) {
-							userAnswers[radio.name] = radio.value;
-						}
-					});
-				
-				let timeComplete = `${timeLimit}:00`;
-				submitAnswer({ userAnswers, timeComplete, totalQuestion }, timeout = 0);
-			}
+                        if (radio.checked) {
+                            userAnswers[radio.name] = radio.value;
+                        }
+                    });
+
+                let timeComplete = `${timeLimit}:00`;
+                submitAnswer({userAnswers, timeComplete, totalQuestion}, timeout = 0);
+            }
 		}, 1000);
 	});
 });
@@ -205,9 +206,9 @@ function handleBtnSubmitClick(timeLimit, totalQuestion) {
 }
 
 async function submitAnswer(data, timeout = 1) {
-	if (timeout == 1) {
-		let comfirm = confirm("Bạn có chắc chắn muốn nộp bài không?");
-		if (!comfirm) {
+	if (timeout === 1) {
+		let conf = confirm("Bạn có chắc chắn muốn nộp bài không?");
+		if (!conf) {
 			return;
 		}
 	}
@@ -229,7 +230,7 @@ async function submitAnswer(data, timeout = 1) {
 
 	test_date = testDate;
 
-	$("#modalResult").modal("show");
+	$("#modalResult").modal();
 
 	const scoreDom = document.getElementById("score");
 	scoreDom.textContent = `${score}`;
@@ -286,19 +287,19 @@ document.getElementById('btn-view-result').addEventListener('click', async () =>
 				">
 					<label><input type="radio" value="A" name="group-${question.id}" ${
 						question.answerUser === 'A' ? 'checked' : ''
-					} disabled>A. ${question.optionA}</label>
+					} disabled style="margin-right: 8px;">A. ${question.optionA}</label>
 
 					<label><input type="radio" value="B" name="group-${question.id}" ${
 						question.answerUser === 'B' ? 'checked' : ''
-					} disabled>B. ${question.optionB}</label>
+					} disabled style="margin-right: 8px;">B. ${question.optionB}</label>
 
 					<label><input type="radio" value="C" name="group-${question.id}" ${
 						question.answerUser === 'C' ? 'checked' : ''
-					} disabled>C. ${question.optionC}</label>
+					} disabled style="margin-right: 8px;">C. ${question.optionC}</label>
 
 					<label><input type="radio" value="D" name="group-${question.id}" ${
 						question.answerUser === 'D' ? 'checked' : ''
-					} disabled>D. ${question.optionD}</label>
+					} disabled style="margin-right: 8px;">D. ${question.optionD}</label>
 				</div>
 				<div class="panel-footer">Đáp án đúng: ${question.answer}</div>
 			</div>
@@ -306,5 +307,5 @@ document.getElementById('btn-view-result').addEventListener('click', async () =>
 		listAnswerDOM.appendChild(div);
 	});
 
-	$("#modalViewResult").modal("show");
+	$("#modalViewResult").modal();
 });

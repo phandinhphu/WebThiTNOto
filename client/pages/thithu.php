@@ -22,7 +22,7 @@ if ($_SESSION['user']['status'] == 0) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thi thử</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?= BASE_URL.'client/assets/css/grid.css' ?>">
     <link rel="stylesheet" href="<?= BASE_URL.'client/assets/css/main.css' ?>">
     <script src="<?= BASE_URL.'client/assets/js/logout.js' ?>"></script>
@@ -34,7 +34,7 @@ if ($_SESSION['user']['status'] == 0) {
         include_once 'client/layout/header.php';
         ?>
 
-        <div id="fixed-info">
+        <div id="fixed-info" style="font-size: 1.6rem; padding: 35px;">
             <h2>Tên bài thi: 
                 <?= isset($_GET['exam_name']) ? $_GET['exam_name'] : 'Bài thi trắc nghiệm' ?>
             </h2>
@@ -121,9 +121,9 @@ if ($_SESSION['user']['status'] == 0) {
 
     <div class="modal fade" id="modalResult" role="dialog">
         <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="modal-content" style="font-size: 1.6rem;">
                 <div class="modal-header">
-                    <h4>Kết quả thi</h4>
+                    <h2>Kết quả thi</h2>
                 </div>
                 <div class="modal-body">
                     <p>Điểm của bạn: <span id="score"></span></p>
@@ -140,9 +140,9 @@ if ($_SESSION['user']['status'] == 0) {
 
     <div class="modal fade" id="modalViewResult" role="dialog">
         <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="modal-content" style="font-size: 1.6rem;">
                 <div class="modal-header">
-                    <h4>Đáp án</h4>
+                    <h2>Đáp án</h2>
                 </div>
                 <div class="modal-body" style="
                     overflow: scroll;
@@ -159,8 +159,9 @@ if ($_SESSION['user']['status'] == 0) {
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="./client/assets/js/generateQuestion.js"></script>
 </body>
 

@@ -17,7 +17,7 @@ if (isset($_SESSION['user'])) {
     <div class="form__login">
         <div class="content__first">
             <h2>Đăng nhập</h2>
-            <div class="alert"></div>
+            <div id="alert"></div>
             <div class="input__login">
                 <input id="email" type="email" name="email" placeholder="Email..." required>
                 <label for="email">Email</label>
@@ -28,7 +28,6 @@ if (isset($_SESSION['user'])) {
                 <label for="password">Mật khẩu</label>
             </div>
             <div class="alert-password"></div>
-            <div class="link__forgot"></div>
             <div class="btn__submit">
                 <button type="button" class="btn">Đăng nhập</button>
                 <a href="?module=pages&action=forgot" class="btn link__register">Quên mật khẩu?</a>
@@ -55,7 +54,7 @@ if (isset($_SESSION['user'])) {
         const password = document.getElementById('password');
 
         btnSubmit.addEventListener('click', () => {
-            $('.alert').html('');
+            $('#alert').html('');
             $('.alert-email').html('');
             $('.alert-password').html('');
 
@@ -97,7 +96,7 @@ if (isset($_SESSION['user'])) {
                         localStorage.setItem('user', res.userId);
                         window.location.href = '?module=pages&action=trangchu';
                     } else {
-                        $('.alert').html(`<div class="alert alert-danger" role="alert">${res.msg}!!!</div>`);
+                        $('#alert').html(`<div class="alert alert-danger" role="alert">${res.msg}!!!</div>`);
                         email.value = '';
                         password.value = '';
                     }

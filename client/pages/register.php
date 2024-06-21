@@ -14,14 +14,14 @@
         <div class="content__first">
             <h2>Đăng ký</h2>
             <div id="loading" style="display:none;">Please wait...</div>
-            <div class="alert" role="alert"></div>
+            <div id="alert"></div>
             <div class="input__login">
                 <input id="name" type="text" name="name" placeholder="Họ và tên..." required>
                 <label for="name">Họ và tên</label>
             </div>
             <div class="alert-name"></div>
             <div class="input__login">
-                <input id="email" type="email" name="email" placeholder="Email..." required>
+                <input id="email" type="text" name="email" placeholder="Email..." required>
                 <label for="email">Email</label>
             </div>
             <div class="alert-email"></div>
@@ -64,12 +64,12 @@
         const phone = document.getElementById('phone');
 
         btnSubmit.addEventListener('click', () => {
-            document.querySelector('.alert').innerHTML = '';
-            document.querySelector('.alert-name').innerHTML = '';
-            document.querySelector('.alert-email').innerHTML = '';
-            document.querySelector('.alert-password').innerHTML = '';
-            document.querySelector('.alert-confirm-password').innerHTML = '';
-            document.querySelector('.alert-phone').innerHTML = '';
+            $('#alert').html('');
+            $('.alert-name').html('');
+            $('.alert-email').html('');
+            $('.alert-password').html('');
+            $('.alert-confirm-password').html('');
+            $('.alert-phone').html('');
 
             let nameValue = name.value;
             let emailValue = email.value;
@@ -78,51 +78,43 @@
             let phoneValue = phone.value;
 
             if (nameValue === '') {
-                document.querySelector('.alert-name')
-                .innerHTML = `<p class="text-danger">Vui lòng nhập họ và tên!!!</p>`;
+                $('.alert-name').html(`<p class="text-danger">Vui lòng nhập họ và tên!!!</p>`);
                 return;
             }
 
             if (emailValue === '') {
-                document.querySelector('.alert-email')
-                .innerHTML = `<p class="text-danger">Vui lòng nhập email!!!</p>`;
+                $('.alert-email').html(`<p class="text-danger">Vui lòng nhập email!!!</p>`);
                 return;
             }
 
             if (passwordValue === '') {
-                document.querySelector('.alert-password')
-                .innerHTML = `<p class="text-danger">Vui lòng nhập mật khẩu!!!</p>`;
+                $('.alert-password').html(`<p class="text-danger">Vui lòng nhập mật khẩu!!!</p>`);
                 return;
             }
 
             if (confirmPasswordValue === '') {
-                document.querySelector('.alert-confirm-password')
-                .innerHTML = `<p class="text-danger">Vui lòng nhập lại mật khẩu!!!</p>`;
+                $('.alert-confirm-password').html(`<p class="text-danger">Vui lòng nhập lại mật khẩu!!!</p>`);
                 return;
             }
 
             if (phoneValue === '') {
-                document.querySelector('.alert-phone')
-                .innerHTML = `<p class="text-danger">Vui lòng nhập số điện thoại!!!</p>`;
+                $('.alert-phone').html(`<p class="text-danger">Vui lòng nhập số điện thoại!!!</p>`);
                 return;
             }
 
             if (passwordValue.length < 6) {
-                document.querySelector('.alert-password')
-                .innerHTML = `<p class="text-danger">Mật khẩu phải lớn hơn 6 ký tự!!!</p>`;
+                $('.alert-password').html(`<p class="text-danger">Mật khẩu phải lớn hơn 6 ký tự!!!</p>`);
                 return;
             }
 
             if (passwordValue !== confirmPasswordValue) {
-                document.querySelector('.alert-confirm-password')
-                .innerHTML = `<p class="text-danger">Mật khẩu không khớp!!!</p>`;
+                $('.alert-confirm-password').html(`<p class="text-danger">Mật khẩu không khớp!!!</p>`);
                 return;
             }
 
             let regex = /^(0)[0-9]{9}$/;
             if (!regex.test(phoneValue)) {
-                document.querySelector('.alert-phone')
-                .innerHTML = `<p class="text-danger">Số điện thoại không hợp lệ!!!</p>`;
+                $('.alert-phone').html(`<p class="text-danger">Số điện thoại không hợp lệ!!!</p>`);
                 return;
             }
             
@@ -145,17 +137,13 @@
                         $('#registerButton').removeClass('btn--disabled');
                         $('.link__register').removeClass('disabled');
 
-                        const alert = document.querySelector('.alert');
-                        alert.classList.add('alert-success');
-                        alert.innerHTML = res.msg;
+                        $('#alert').html(`<div class="alert alert-success" role="alert">${res.msg}!!!</div>`);
                     } else {
                         $('#loading').hide();
                         $('#registerButton').removeClass('btn--disabled');
                         $('.link__register').removeClass('disabled');
 
-                        const alert = document.querySelector('.alert');
-                        alert.classList.add('alert-danger');
-                        alert.innerHTML = res.msg;
+                        $('#alert').html(`<div class="alert alert-danger" role="alert">${res.msg}!!!</div>`);
                         name.value = '';
                         email.value = '';
                         password.value = '';

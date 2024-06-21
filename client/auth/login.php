@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header('Content-Type: application/json');
     echo json_encode([
         'status' => $status,
-        'userId' => $userId,
+        'userId' => $userId ?? "",
         'msg' => $msg
     ]);
 } else {
