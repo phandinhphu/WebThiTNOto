@@ -92,7 +92,7 @@ if (isset($_GET['_sort']) && isset($_GET['search'])) {
         <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
             <div class="header">
                 <div>
-                    <h1>Quản lý người dùng</h1>
+                    <h1>Quản lý các bài thi của người dùng</h1>
                     <label for="sorted">
                         <strong>Filter</strong>
                         <i class="fa fa-filter" aria-hidden="true"></i>

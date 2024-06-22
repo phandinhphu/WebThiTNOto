@@ -165,7 +165,11 @@ if (isset($_GET['examName']) && empty($_GET['dateAnswer'])) {
                                 <h3>Phân trang</h3>
                             </div>
                             <div class="card-body">
-                                <nav aria-label="Page navigation">
+                                <nav aria-label="Page navigation" style="
+                                    overflow-x: hidden;
+                                    overflow-y: scroll;
+                                    max-height: 387px;
+                                ">
                                     <ul class="pagination" style="flex-wrap: wrap;">
                                         <?php if ($page > 1) : ?>
                                             <li class="page-item">

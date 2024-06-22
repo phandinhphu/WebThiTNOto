@@ -20,7 +20,7 @@ if (isset($_GET['search']) && empty($_GET['_sort'])) {
     $questions = getRows("SELECT * FROM questions WHERE question LIKE '%$search%' LIMIT $start, $limit");
 }
 
-if (isset($_GET['_sort'])) {
+if (isset($_GET['_sort']) && empty($_GET['search'])) {
     $sort = $_GET['_sort'];
     if ($sort == 'hard' || $sort == 'easy') {
         $totalPage = ceil(count(getRows("SELECT * FROM questions WHERE difficulty = '$sort'")) / $limit);
@@ -32,16 +32,15 @@ if (isset($_GET['_sort'])) {
 }
 
 if (isset($_GET['_sort']) && isset($_GET['search'])) {
-    $newQuestions = [];
+    $sort = $_GET['_sort'];
     $search = $_GET['search'];
-    foreach ($questions as $question) {
-        $key1 = strtolower(removeAccent($question['question']));
-        $key2 = strtolower(removeAccent($search));
-        if (strpos($key1, $key2) !== false) {
-            $newQuestions[] = $question;
-        }
+    if ($sort == 'hard' || $sort == 'easy') {
+        $totalPage = ceil(count(getRows("SELECT * FROM questions WHERE difficulty = '$sort' AND question LIKE '%$search%'")) / $limit);
+        $questions = getRows("SELECT * FROM questions WHERE difficulty = '$sort' AND question LIKE '%$search%' LIMIT $start, $limit");
+    } else {
+        $totalPage = ceil(count(getRows("SELECT * FROM questions WHERE chuDe = '$sort' AND question LIKE '%$search%'")) / $limit);
+        $questions = getRows("SELECT * FROM questions WHERE chuDe = '$sort' AND question LIKE '%$search%' LIMIT $start, $limit");
     }
-    $questions = $newQuestions;
 }
 
 $examNames = getRows("SELECT * FROM exam");
