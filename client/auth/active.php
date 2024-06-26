@@ -1,8 +1,4 @@
 <?php
-echo '
-    <a href='.BASE_URL.'?module=pages&action=login>Đăng nhập</a>
-';
-die();
 if (empty($_GET['token'])) {
     echo 'Không tìm thấy Token kích hoạt';
 } else {
@@ -16,13 +12,13 @@ if (empty($_GET['token'])) {
         ];
         try {
             $result = update('users', $data, ['id' => $activeTokenDB['id']]);
-            delete('login', ['userId' => $_SESSION['user']['id']]);
             if (isset($_SESSION['user'])) {
+                delete('login', ['userId' => $_SESSION['user']['id']]);
                 session_destroy();
             }
             echo 'Kích hoạt tài khoản thành công </br>';
             echo '
-                <a href='.BASE_URL.'?module=pages&action=login>Đăng nhập</a>
+                <a href="'.BASE_URL.'?module=pages&action=login">Đăng nhập</a>
             ';
             exit();
         } catch (Exception $e) {

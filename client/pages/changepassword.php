@@ -33,7 +33,7 @@ if (!isset($_SESSION['id'])) {
             <div class="alert-repassword"></div>
             <div class="btn__submit">
                 <button type="submit" class="btn">Đổi mật khẩu</button>
-                <a href="?client=pages&action=login" class="link__register">Đăng nhập</a>
+                <a href="?client=pages&action=login" class="btn link__register">Đăng nhập</a>
             </div>
         </div>
         <div class="content__second">

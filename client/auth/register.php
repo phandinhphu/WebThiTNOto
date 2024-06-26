@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'createAt' => date('Y-m-d H:i:s')
     ];
 
-    $sendMail = sendMail($email, 'Kích hoạt tài khoản', 'Vui lòng click vào link sau để kích hoạt tài khoản: <a href="'.BASE_URL.'?module=auth&action=active&token=' . $activeToken . '">Kích hoạt</a>');
+    $sendMail = sendMail($email, 'Kích hoạt tài khoản', 'Vui lòng click vào link sau để kích hoạt tài khoản: <a href="http://localhost/WebThiTN-Oto/?module=auth&action=active&token=' . $activeToken . '">Kích hoạt</a>');
 
     if ($sendMail) {
         $rs = insert('users', $data);

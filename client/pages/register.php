@@ -13,7 +13,7 @@
     <div class="form__login">
         <div class="content__first">
             <h2>Đăng ký</h2>
-            <div id="loading" style="display:none;">Please wait...</div>
+            <div id="loading" style="display:none; margin-bottom: 8px;">Please wait...</div>
             <div id="alert"></div>
             <div class="input__login">
                 <input id="name" type="text" name="name" placeholder="Họ và tên..." required>
