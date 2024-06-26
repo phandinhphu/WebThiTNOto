@@ -165,6 +165,10 @@ btnRpw.forEach(item => {
 });
 
 async function handleSendMail(id) {
+    $('#js-rpw-user-save').prop('disabled', true);
+    $('#js-rpw-user-close').prop('disabled', true);
+    $('#rpw-user-icon-close').prop('disabled', true);
+
     const subject = $('#subject').val();
     const content = $('#content').val();
     const data = {
@@ -186,5 +190,8 @@ async function handleSendMail(id) {
         location.reload();
     } else {
         alert('Gửi mail thất bại');
+        $('#js-rpw-user-save').prop('disabled', false);
+        $('#js-rpw-user-close').prop('disabled', false);
+        $('#rpw-user-icon-close').prop('disabled', false);
     }
 }

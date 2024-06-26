@@ -60,7 +60,6 @@ $(document).on('click', '.js-view-mngex', async function () {
     $('#modalViewResult').modal('show');
     let userId = $(this).attr('value');
     let testDate = $(this).attr('test-date');
-    console.log(userId, testDate);
     const response = await fetch(`http://localhost/WebThiTN-Oto/api/question/getQuestionByTestDate.php?testDate=${testDate}&userId=${userId}`);
     const {
         data: questions

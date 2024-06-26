@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header('Content-Type: application/json');
     try {
         $rs = update('users', $data, ['id' => $_SESSION['id']]);
-        session_destroy();
+        unset($_SESSION['id']);
         echo json_encode(['status' => 200, 'msg' => 'Đổi mật khẩu thành công']);
     } catch (Exception $e) {
         echo json_encode(['status' => 404, 'msg' => 'Đã xảy ra lỗi']);
