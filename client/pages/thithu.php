@@ -112,11 +112,10 @@ if ($_SESSION['user']['status'] == 0) {
                 </div>
             </div>
         </div>
-    </div>
-
-    <?php
-    include_once 'client/layout/footer.php';
-    ?>
+        
+        <?php
+        include_once 'client/layout/footer.php';
+        ?>
     </div>
 
     <div class="modal fade" id="modalResult" role="dialog">

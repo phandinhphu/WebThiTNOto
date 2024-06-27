@@ -212,10 +212,10 @@ if (isset($_GET['examName']) && empty($_GET['testDate'])) {
                 </div>
             </div>
         </div>
+        <?php
+        include_once 'client/layout/footer.php';
+        ?>
     </div>
-    <?php
-    include_once 'client/layout/footer.php';
-    ?>
 
     <div class="modal fade" id="modalDetail" role="dialog">
         <div class="modal-dialog">

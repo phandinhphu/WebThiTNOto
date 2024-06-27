@@ -49,10 +49,11 @@
                 </div>
             </div>
         </div>
+        
+        <?php
+        include_once 'client/layout/footer.php';
+        ?>
     </div>
-    <?php
-    include_once 'client/layout/footer.php';
-    ?>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="./client/assets/js/resetpassword.js"></script>
     <script src="./client/assets/js/changeinfo.js"></script>

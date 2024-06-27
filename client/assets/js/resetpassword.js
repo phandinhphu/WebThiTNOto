@@ -1,20 +1,28 @@
 const btnSave = document.querySelector('.js-save-rpassword');
 
 btnSave.addEventListener('click', () => {
-    document.querySelector('.alert').innerHTML = '';
+    document.querySelector('.alert strong').innerHTML = '';
 
     let old_password = document.getElementById('old-password').value;
     let new_password = document.getElementById('password').value;
     let confirm_password = document.getElementById('rpassword').value;
 
+    if (old_password == '' || new_password == '' || confirm_password == '') {
+        document.querySelector('.alert').classList.toggle('alert-danger');
+        document.querySelector('.alert strong').innerHTML = 'Vui lòng nhập đầy đủ thông tin';
+        return;
+    }
+
     if (new_password.length < 6) {
         document.querySelector('.alert').classList.toggle('alert-danger');
         document.querySelector('.alert strong').innerHTML = 'Mật khẩu mới phải có ít nhất 6 ký tự';
+        return;
     }
 
     if (old_password.length < 6) {
         document.querySelector('.alert').classList.toggle('alert-danger');
         document.querySelector('.alert strong').innerHTML = 'Mật khẩu cũ phải có ít nhất 6 ký tự';
+        return;
     }
 
     if (new_password !== confirm_password) {
@@ -48,8 +56,6 @@ btnSave.addEventListener('click', () => {
                         document.querySelector('.alert').classList.add('alert-danger');
                     }
                     document.querySelector('.alert strong').innerHTML = res.message;
-                    document.getElementById('password').value = '';
-                    document.getElementById('rpassword').value = '';
                 }
             }
         });

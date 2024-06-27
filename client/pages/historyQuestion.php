@@ -205,10 +205,11 @@ if (isset($_GET['examName']) && empty($_GET['dateAnswer'])) {
                 </div>
             </div>
         </div>
+        
+        <?php
+        include_once 'client/layout/footer.php';
+        ?>
     </div>
-    <?php
-    include_once 'client/layout/footer.php';
-    ?>
 </body>
 
 </html>
