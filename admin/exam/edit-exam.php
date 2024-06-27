@@ -5,13 +5,15 @@ require_once '../../db/database.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $examName = $_POST['examName'];
     $examTime = $_POST['examTime'];
+    $soCauHoi = $_POST['soCauHoi'];
     $examStatus = ($_POST['examStatus'] == 'active') ? 1 : 0;
     
     $dataQuery = [
         'examName' => $examName,
         'timeLimit' => $examTime,
         'updatedAt' => date('Y-m-d H:i:s'),
-        'status' => $examStatus
+        'status' => $examStatus,
+        'soCauHoi' => $soCauHoi
     ];
     $where = ['examName' => $examName];
     $rs = update('exam', $dataQuery, $where);

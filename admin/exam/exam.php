@@ -12,7 +12,7 @@ $exams = getRows('SELECT * FROM exam');
                 <thead>
                     <tr>
                         <th>Tên bài thi</th>
-                        <th>Thời gian làm bài</th>
+                        <th>Thời gian làm bài(phút)</th>
                         <th>Ngày tạo</th>
                         <th>Ngày cập nhật</th>
                         <th>Trạng thái</th>

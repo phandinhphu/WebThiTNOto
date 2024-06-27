@@ -7,8 +7,9 @@ function handleAddExam() {
 		var examName = $("#exam-name").val();
 		var examTime = $("#exam-time").val();
 		var examStatus = $("#exam-status").val();
+		var soCauHoi = $("#so-cau-hoi").val();
 
-		if (examName == "" || examTime == "") {
+		if (examName == "" || examTime == "" || soCauHoi == "") {
 			alert("Please fill in all fields");
 			return;
 		}
@@ -20,6 +21,7 @@ function handleAddExam() {
 				examName: examName,
 				examTime: examTime,
 				examStatus: examStatus,
+				soCauHoi: soCauHoi
 			},
 			success: function (response) {
 				if (response.status == 1) {
@@ -43,6 +45,7 @@ function handleEditExam() {
 		var examName = $("#edit-exam-name").val();
 		var examTime = $("#edit-exam-time").val();
 		var examStatus = $("#edit-exam-status").val();
+		var soCauHoi = $("#edit-so-cau-hoi").val();
 
 		if (examName == "" || examTime == "") {
 			alert("Please fill in all fields");
@@ -56,6 +59,7 @@ function handleEditExam() {
 				examName: examName,
 				examTime: examTime,
 				examStatus: examStatus,
+				soCauHoi: soCauHoi
 			},
 			success: function (response) {
 				if (response.status == 1) {
@@ -83,6 +87,7 @@ function handleEditExam() {
 					$("#editExamModal").modal("show");
 					$("#edit-exam-name").val(response.examName);
 					$("#edit-exam-time").val(response.timeLimit);
+					$("#edit-so-cau-hoi").val(response.soCauHoi);
 					$("#edit-exam-status").val(
 						response.status == 1 ? "active" : "inactive"
 					);

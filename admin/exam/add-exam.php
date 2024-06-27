@@ -5,6 +5,7 @@ require_once '../../db/database.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $examName = $_POST['examName'];
     $examTime = $_POST['examTime'];
+    $soCauHoi = $_POST['soCauHoi'];
     $examStatus = ($_POST['examStatus'] == 'active') ? 1 : 0;
     
     $dataQuery = [
@@ -12,7 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'timeLimit' => $examTime,
         'createdAt' => date('Y-m-d H:i:s'),
         'updatedAt' => date('Y-m-d H:i:s'),
-        'status' => $examStatus
+        'status' => $examStatus,
+        'soCauHoi' => $soCauHoi
     ];
 
     $rs = insert('exam', $dataQuery);

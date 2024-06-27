@@ -177,12 +177,17 @@ require_once '../includes/session.php';
                             <input type="text" class="form-control" id="exam-time" name="exam-time">
                         </div>
                         <div class="form-group">
+                            <label for="so-cau-hoi" class="col-form-label">Số câu hỏi:</label>
+                            <input type="number" class="form-control" id="so-cau-hoi" name="so-cau-hoi">
+                        </div>
+                        <div class="form-group">
                             <label for="exam-status" class="col-form-label">Exam Status:</label>
                             <select name="exam-status" class="form-control" id="exam-status">
                                 <option value="active">Active</option>
                                 <option value="inactive">Inactive</option>
                             </select>
                         </div>
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button id="js-close" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -212,6 +217,10 @@ require_once '../includes/session.php';
                         <div class="form-group">
                             <label for="edit-exam-time" class="col-form-label">Exam Time:</label>
                             <input type="text" class="form-control" id="edit-exam-time" name="edit-exam-time">
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-so-cau-hoi" class="col-form-label">Số câu hỏi:</label>
+                            <input type="number" class="form-control" id="edit-so-cau-hoi" name="edit-so-cau-hoi">
                         </div>
                         <div class="form-group">
                             <label for="edit-exam-status" class="col-form-label">Exam Status:</label>
